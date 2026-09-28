@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Reporte de prácticas – Base de Datos en la Nube – 7E</title><link href="css/styles.css" rel="stylesheet"/></head><body><nav class="topnav no-print"><button aria-label="Menú" id="menuBtn">☰ Menú</button><div id="menu"><a href="#portada">Portada</a><a href="#indice">Índice</a><a href="#introduccion">Introducción</a><a href="#marco">Marco teórico</a><a href="#act1">Act. 1</a><a href="#act2">Act. 2</a><a href="#act3">Act. 3</a><a href="#act4">Act. 4</a><a href="#act5">Act. 5</a><a href="#conclusion">Conclusión</a><a href="#referencias">Referencias</a></div></nav><div class="wrap"><header class="portada" id="portada"><img alt="Logotipo de la Universidad Tecnológica de Puebla" class="logo" src="img/general/logo_utp.jpg"/>
+<h1>UNIVERSIDAD TECNOLÓGICA DE PUEBLA</h1><p class="sub">Tecnologías de la Información</p><p class="sub">Área Desarrollo de Software Multiplataforma</p>
+<p class="sub"><strong>Materia:</strong> Optativa I – Base de Datos en la Nube</p>
+<div class="titulo"><h2>Reporte de prácticas de Base de Datos en la Nube</h2></div>
+<table class="meta"><tr><td>Alumno</td><td>Ayotitla Lazcano José Armando</td></tr><tr><td>Matrícula</td><td>UTP0210610</td></tr><tr><td>Grupo</td><td>7E</td></tr><tr><td>Profesor</td><td>Javier Nolasco Hernández</td></tr><tr><td>Fecha</td><td>Septiembre de 2026</td></tr></table></header><main><section class="pg" id="indice"><h2>Índice</h2><div class="cards">
+<a class="card" href="#act1"><h3>Actividad 1. Laminas DB con PHP</h3><p>Preparación de PHP, Composer e instalación de Laminas DB.</p><span class="btn">Abrir actividad</span></a>
+<a class="card" href="#act2"><h3>Actividad 2. Tabla desde Neon</h3><p>Creación de tablas y visualización de alumnos en una tabla HTML con PHP.</p><span class="btn">Abrir actividad</span></a>
+<a class="card" href="#act3"><h3>Actividad 3. JSON con .NET</h3><p>Aplicación ASP.NET Core conectada a Neon con endpoint JSON.</p><span class="btn">Abrir actividad</span></a>
+<a class="card" href="#act4"><h3>Actividad 4. Asistencias 7E</h3><p>PostgreSQL, psql y modelado de la base de datos de asistencias.</p><span class="btn">Abrir actividad</span></a>
+<a class="card" href="#act5"><h3>Actividad 5. Usuarios y aplicaciones</h3><p>Privilegios de usuarios, respaldos en cinco lenguajes y cuadro comparativo.</p><span class="btn">Abrir actividad</span></a>
+</div><h3>Contenido</h3><ol class="toc">
+<li><a href="#introduccion">Introducción</a></li><li><a href="#marco">Marco teórico</a></li>
+<li><a href="#act1">Actividad 1. Preparación del entorno PHP e instalación de Laminas DB</a></li>
+<li><a href="#act2">Actividad 2. Base de datos en Neon y resultado en tabla HTML</a></li>
+<li><a href="#act3">Actividad 3. Aplicación .NET conectada a Neon con salida JSON</a></li>
+<li><a href="#act4">Actividad 4. PostgreSQL, psql y modelado de asistencias 7E</a></li>
+<li><a href="#act5">Actividad 5. Usuarios, privilegios y aplicaciones de respaldo</a>
+<ol class="sub"><li><a href="#act5">5.1 Usuarios y privilegios</a></li><li><a href="#app-php">5.2.1 PHP</a></li><li><a href="#app-net">5.2.2 .NET</a></li><li><a href="#app-go">5.2.3 Go</a></li><li><a href="#app-python">5.2.4 Python</a></li><li><a href="#app-rust">5.2.5 Rust</a></li></ol></li>
+<li><a href="#conclusion">Conclusión general</a></li><li><a href="#referencias">Referencias</a></li>
+</ol></section>
+<section class="pg" id="introduccion"><h2>1. Introducción</h2><p>En este reporte presento las cinco actividades realizadas en la materia Base de Datos en la Nube. El trabajo empieza con la preparación del entorno de PHP y termina con la administración de usuarios y la creación de aplicaciones para generar respaldos de una base de datos en PostgreSQL alojada en Neon.</p>
+<p>Durante las prácticas trabajé con PHP, Composer y Laminas DB; también utilicé Neon y PostgreSQL para crear tablas, insertar datos y hacer consultas. En otras actividades usé ASP.NET Core para mostrar información en JSON, psql para trabajar con la base de asistencias del grupo 7E y distintos lenguajes para realizar respaldos.</p>
+<p>Con estas actividades puse en práctica temas como creación y relación de tablas, consultas SQL, conexión de aplicaciones con una base de datos en la nube, manejo de usuarios y privilegios, uso de JSON y generación de archivos de respaldo. En cada actividad se incluyen las capturas que muestran los pasos y los resultados obtenidos.</p>
+<p>El reporte está organizado por actividad e incluye objetivo, herramientas, procedimiento, comandos, resultados y conclusión. En la última actividad también se agrega un cuadro comparativo para revisar la facilidad de uso y el rendimiento observado en las aplicaciones desarrolladas.</p><p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="pg" id="marco"><h2>2. Marco teórico</h2><h3>2.1 Bases de datos relacionales, SQL y PostgreSQL</h3>
+<p>Una base de datos relacional organiza la información en tablas relacionadas mediante llaves, y SQL es el lenguaje con el que se definen, insertan y consultan esos datos. PostgreSQL es un sistema de gestión de bases de datos relacional de código abierto que incluye restricciones de llave primaria y foránea para mantener la integridad de los datos (PostgreSQL Global Development Group, 2026a, 2026e). Su relación con las prácticas es directa: las Actividades 2 y 4 trabajan con tablas, relaciones y consultas SQL.</p>
+<h3>2.2 psql y pg_dump</h3>
+<p><code>psql</code> es la terminal interactiva de PostgreSQL; permite ejecutar SQL y meta-comandos como <code>\dt</code> o <code>\du</code> (PostgreSQL Global Development Group, 2026f). Por su parte, <code>pg_dump</code> extrae una base de datos en un archivo de respaldo (PostgreSQL Global Development Group, 2026b). <code>psql</code> se utiliza principalmente en la Actividad 4 y en la administración de usuarios de la Actividad 5, mientras que <code>pg_dump</code> se emplea en las aplicaciones de respaldo de la Actividad 5.</p>
+<h3>2.3 Roles, privilegios y seguridad</h3>
+<p>En PostgreSQL los usuarios son roles con permiso de inicio de sesión, y cada objeto tiene un propietario que debe otorgar privilegios a los demás roles (PostgreSQL Global Development Group, 2026c). El comando <code>GRANT</code> asigna esos privilegios (PostgreSQL Global Development Group, 2026d). Neon adopta este modelo de roles (Neon, 2024). Aplicar el principio de mínimo privilegio, como en la Actividad 5, reduce el riesgo de modificaciones no autorizadas.</p>
+<h3>2.3.1 Bases de datos en la nube y Neon</h3>
+<p>Neon es un servicio de PostgreSQL en la nube que ofrece conexión remota mediante una cadena de conexión y un editor SQL en el navegador (Neon, 2026). Permitió trabajar sin instalar un servidor propio, tanto desde <code>psql</code> como desde código.</p>
+<h3>2.4 Modelo cliente-servidor y aplicaciones web</h3>
+<p>En una aplicación web el navegador (cliente) envía peticiones HTTP a un servidor, que responde con HTML, JSON u otros recursos; el contenido se estructura y presenta según la tecnología utilizada (Mozilla, 2026). Las Actividades 2, 3 y 5 aplican este modelo y además se conectan a la base de datos remota.</p>
+<h3>2.5 PHP, Composer y Laminas DB</h3>
+<p>PHP es un lenguaje de programación del lado del servidor muy usado en aplicaciones web (PHP Group, 2026). Composer administra las dependencias de un proyecto PHP (Composer, 2026) y Laminas DB es un componente que ofrece un adaptador para conectarse a bases de datos (Laminas Project, 2026). Se instalaron en la Actividad 1 y se aplicaron en la Actividad 2.</p>
+<h3>2.6 .NET y ASP.NET Core</h3>
+<p>.NET es la plataforma de desarrollo de Microsoft; ASP.NET Core permite crear aplicaciones web con C# (Microsoft, 2026). En la Actividad 3 se utilizó para construir el endpoint JSON y también aparece como una de las aplicaciones de respaldo de la Actividad 5.</p>
+<h3>2.7 Go, Python con Flask y Rust con Axum</h3>
+<p>Go es un lenguaje compilado con biblioteca estándar para servidores HTTP (Go Project, 2026). Flask es un microframework web de Python (Pallets, 2026). Rust es un lenguaje de sistemas que se gestiona con Cargo, y Axum es un framework web para Rust (Rust Project Developers, 2026; Tokio Project, 2026). Con ellos se construyeron las aplicaciones 3, 4 y 5 de la Actividad 5.</p><p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="act pg" id="act1"><h2>3. Actividad 1. Preparación del entorno PHP e instalación de Laminas DB</h2><h3>Objetivo</h3>
+<p>Preparar un entorno de desarrollo PHP en Windows, verificar la disponibilidad de PHP y Composer, crear la carpeta de trabajo e instalar Laminas DB mediante Composer, comprobando que las dependencias fueron agregadas correctamente al proyecto.</p>
+<h3>Herramientas utilizadas</h3>
+<div class="table-responsive"><table>
+<tr><th>Herramienta</th><th>Uso en la actividad</th></tr>
+<tr><td>PHP</td><td>Lenguaje y entorno de ejecución utilizado para el proyecto.</td></tr>
+<tr><td>Composer</td><td>Administrador de dependencias usado para instalar Laminas DB.</td></tr>
+<tr><td>Laminas DB</td><td>Componente de acceso a bases de datos instalado dentro del proyecto.</td></tr>
+<tr><td>CMD de Windows</td><td>Terminal utilizada para ejecutar comandos y comprobar la instalación.</td></tr>
+<tr><td>Explorador de archivos / navegador</td><td>Apoyo visual para revisar carpetas y consultar la documentación de Laminas.</td></tr>
+</table></div>
+<h3>Procedimiento</h3>
+<h4>Paso 1. Comprobación de PHP</h4>
+<p>Primero se verificó que PHP estuviera instalado y pudiera ejecutarse desde CMD. Para ello se utilizó el comando <code>php -v</code>. La salida mostró la versión disponible del intérprete, confirmando que el entorno de PHP estaba listo para utilizarse.</p>
+<pre><code>php -v</code></pre>
+<figure><img alt="Verificación de la versión de PHP instalada." src="img/actividad1/fig1_01.png"/><figcaption><strong>Figura 1.1.</strong> Verificación de la versión de PHP instalada.</figcaption></figure>
+<h4>Paso 2. Localización del ejecutable de PHP</h4>
+<p>Después se utilizó <code>where php</code> para conocer la ubicación desde la cual Windows estaba ejecutando PHP. Esta comprobación es útil para verificar que la instalación se encuentra correctamente registrada en el sistema.</p>
+<pre><code>where php</code></pre>
+<figure><img alt="Comprobación de la ubicación del ejecutable de PHP con el comando where php." src="img/actividad1/fig1_02.png"/><figcaption><strong>Figura 1.2.</strong> Comprobación de la ubicación del ejecutable de PHP con el comando where php.</figcaption></figure>
+<h4>Paso 3. Comprobación de Composer</h4>
+<p>Posteriormente se verificó Composer, herramienta necesaria para administrar las dependencias del proyecto. El comando <code>composer --version</code> permitió confirmar que Composer estaba instalado y funcionando correctamente.</p>
+<pre><code>composer --version</code></pre>
+<figure><img alt="Verificación de Composer en el entorno de trabajo." src="img/actividad1/fig1_03.png"/><figcaption><strong>Figura 1.3.</strong> Verificación de Composer en el entorno de trabajo.</figcaption></figure>
+<h4>Paso 4. Preparación de la carpeta de trabajo</h4>
+<p>Se accedió a la carpeta asignada para la actividad mediante el comando <code>cd</code>. El video también muestra la revisión visual de las carpetas del proyecto, lo que permitió comprobar que se estaba trabajando en la ubicación correcta antes de instalar las dependencias.</p>
+<pre><code>cd C:\optativa\7e\php\actividad2</code></pre>
+<figure><img alt="Acceso a la carpeta de trabajo utilizada para la práctica." src="img/actividad1/fig1_04.png"/><figcaption><strong>Figura 1.4.</strong> Acceso a la carpeta de trabajo utilizada para la práctica.</figcaption></figure>
+<h4>Paso 5. Consulta de Laminas e instalación del componente</h4>
+<p>En el video se consulta la documentación de Laminas y posteriormente se ejecuta Composer para agregar <code>laminas/laminas-db</code> al proyecto. Composer resolvió las dependencias necesarias y generó los archivos de configuración correspondientes.</p>
+<pre><code>composer require laminas/laminas-db</code></pre>
+<figure><img alt="Instalación del componente Laminas DB mediante Composer." src="img/actividad1/fig1_05.png"/><figcaption><strong>Figura 1.5.</strong> Instalación del componente Laminas DB mediante Composer.</figcaption></figure>
+<h4>Paso 6. Comprobación de la instalación</h4>
+<p>Para cerrar el avance mostrado en el video, se revisaron los archivos generados por Composer. La carpeta <code>vendor</code> ya contenía los componentes de Laminas, incluyendo <code>laminas-db</code> y <code>laminas-stdlib</code>. Con esto se comprobó que la instalación había finalizado correctamente.</p>
+<pre><code>dir
+dir vendor\laminas</code></pre>
+<figure><img alt="Comprobación de los archivos instalados de Laminas dentro de la carpeta vendor." src="img/actividad1/fig1_06.png"/><figcaption><strong>Figura 1.6.</strong> Comprobación de los archivos instalados de Laminas dentro de la carpeta vendor.</figcaption></figure>
+<h3>Resumen de comandos utilizados</h3>
+<div class="table-responsive"><table>
+<tr><th>Comando</th><th>Función</th></tr>
+<tr><td><code>php -v</code></td><td>Muestra la versión de PHP instalada en el equipo.</td></tr>
+<tr><td><code>where php</code></td><td>Localiza la ruta del ejecutable de PHP en Windows.</td></tr>
+<tr><td><code>composer --version</code></td><td>Comprueba que Composer está instalado y disponible.</td></tr>
+<tr><td><code>cd C:\optativa\7e\php\actividad2</code></td><td>Permite ingresar a la carpeta utilizada para la actividad.</td></tr>
+<tr><td><code>composer require laminas/laminas-db</code></td><td>Instala Laminas DB y sus dependencias dentro del proyecto.</td></tr>
+<tr><td><code>dir</code></td><td>Muestra los archivos generados en la carpeta del proyecto.</td></tr>
+<tr><td><code>dir vendor\laminas</code></td><td>Comprueba que los paquetes de Laminas fueron instalados dentro de <code>vendor</code>.</td></tr>
+</table></div>
+<h3>Resultado</h3>
+<p>El resultado de esta actividad fue dejar funcionando el entorno de PHP con Composer e instalar Laminas DB dentro del proyecto. Al revisar la carpeta vendor se pudo comprobar que las dependencias necesarias quedaron agregadas correctamente.</p>
+<h3>Conclusión de la actividad 1</h3>
+<p>Con esta primera actividad entendí mejor cómo preparar un proyecto de PHP antes de empezar a programar. Revisar PHP y Composer me ayudó a confirmar que el entorno estaba listo, y con Composer pude instalar Laminas DB de una forma más sencilla. Al final el proyecto quedó preparado para continuar con la conexión a la base de datos.</p>
+<p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="act pg" id="act2"><h2>4. Actividad 2. Base de datos en Neon y conexión desde PHP con Laminas DB</h2><h3>Objetivo</h3>
+<p>Crear en Neon las tablas <code>alumnos</code>, <code>materias</code> e <code>inscripciones</code> con datos de muestra, y desarrollar en PHP, mediante Laminas DB, una página que consulte la tabla <code>alumnos</code> y muestre el resultado en una tabla HTML.</p>
+<h3>Herramientas utilizadas</h3>
+<div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso en la actividad</th></tr></thead><tbody><tr><td>PHP 8.2.12 (XAMPP)</td><td>Ejecución del código y servidor integrado (<code>php -S</code>).</td></tr><tr><td>Composer y Laminas DB</td><td>Dependencias instaladas en la Actividad 1 y usadas en <code>index.php</code>.</td></tr><tr><td>Neon (PostgreSQL)</td><td>Base de datos <strong>neondb</strong> en la nube y su Editor SQL.</td></tr><tr><td>CMD de Windows</td><td>Verificación de extensiones y arranque del servidor.</td></tr><tr><td>Bloc de notas</td><td>Escritura del archivo <code>index.php</code>.</td></tr><tr><td>Navegador web</td><td>Visualización de la consola de Neon y del resultado de la página.</td></tr></tbody></table></div>
+<h3>Procedimiento</h3>
+<p>Esta actividad continúa en la misma carpeta de trabajo <code>C:\optativa\7e\php\actividad2</code>, donde ya se habían instalado PHP, Composer y Laminas DB (Actividad 1); por ello esas capturas no se repiten aquí.</p>
+<h4>Paso 1. Obtención de los datos de conexión en Neon</h4>
+<p>Desde la consola de Neon se abrió la ventana <em>Connect</em> del proyecto para consultar la cadena de conexión de la base de datos <strong>neondb</strong>. Esta información (host, usuario, base de datos y parámetros SSL) es la que se necesita más adelante para configurar el adaptador de Laminas DB.</p>
+<figure id="fig2-1"><img alt="Figura 2.1. Ventana de conexión de Neon con la cadena de conexión de la base neondb." src="img/actividad2/fig2_01.png"/><figcaption><strong>Figura 2.1.</strong> Ventana de conexión de Neon con la cadena de conexión de la base neondb.</figcaption></figure>
+<p>En la Figura 2.1 se observa la cadena de conexión que entrega Neon, con el host tipo <em>pooler</em> y el parámetro <code>sslmode=require</code>.</p>
+<h4>Paso 2. Creación de las tablas desde el Editor SQL</h4>
+<p>En el Editor SQL de Neon se ejecutó la consulta guardada como «crear tablas del sistema de matriculación de estudiantes», que define las tablas del sistema. En la captura se distingue la sentencia <code>CREATE TABLE alumnos</code> con un identificador <code>SERIAL PRIMARY KEY</code>, el nombre y un correo único.</p>
+<figure id="fig2-2"><img alt="Figura 2.2. Editor SQL de Neon con la sentencia CREATE TABLE alumnos." src="img/actividad2/fig2_02.png"/><figcaption><strong>Figura 2.2.</strong> Editor SQL de Neon con la sentencia CREATE TABLE alumnos.</figcaption></figure>
+<p>En la Figura 2.2 se aprecia el script de creación de tablas dentro del Editor SQL, listo para ejecutarse sobre la base <code>neondb</code>.</p>
+<p>Después se abrió la sección <em>Tablas</em> de la consola para comprobar visualmente el resultado.</p>
+<figure id="fig2-3"><img alt="Figura 2.3. Sección Tablas de Neon con alumnos, inscripciones y materias." src="img/actividad2/fig2_03.png"/><figcaption><strong>Figura 2.3.</strong> Sección Tablas de Neon con alumnos, inscripciones y materias.</figcaption></figure>
+<p>La Figura 2.3 muestra que la base ya contiene las tres tablas requeridas: <code>alumnos</code>, <code>inscripciones</code> y <code>materias</code>.</p>
+<h4>Paso 3. Inserción de datos de muestra</h4>
+<p>Se insertaron registros en cada tabla para poder probar consultas. En <code>alumnos</code> se registraron tres estudiantes con nombre, correo y edad; en <code>materias</code>, tres materias con sus créditos; y en <code>inscripciones</code>, cuatro relaciones entre alumno y materia. Neon confirmó cada ejecución con el mensaje «La instrucción se ejecutó correctamente».</p>
+<pre><code>INSERT INTO alumnos (nombre, correo, edad)
+VALUES
+('Juan Pérez', 'juan@gmail.com', 20),
+('María López', 'maria@gmail.com', 21),
+('Carlos García', 'carlos@gmail.com', 19);</code></pre>
+<figure id="fig2-4"><img alt="Figura 2.4. Inserción de tres alumnos de muestra." src="img/actividad2/fig2_04.png"/><figcaption><strong>Figura 2.4.</strong> Inserción de tres alumnos de muestra.</figcaption></figure>
+<p>La Figura 2.4 confirma que la inserción en <code>alumnos</code> se ejecutó sin errores.</p>
+<pre><code>INSERT INTO materias (nombre, creditos)
+VALUES
+('Programación', 8),
+('Bases de Datos', 8),
+('Desarrollo Web', 6);</code></pre>
+<figure id="fig2-5"><img alt="Figura 2.5. Inserción de materias de muestra." src="img/actividad2/fig2_05.png"/><figcaption><strong>Figura 2.5.</strong> Inserción de materias de muestra.</figcaption></figure>
+<p>En la Figura 2.5 se observa la inserción en <code>materias</code>, también confirmada por Neon.</p>
+<pre><code>INSERT INTO inscripciones (alumno_id, materia_id)
+VALUES
+(1, 1),
+(1, 2),
+(2, 2),
+(3, 3);</code></pre>
+<figure id="fig2-6"><img alt="Figura 2.6. Inserción de inscripciones de muestra." src="img/actividad2/fig2_06.png"/><figcaption><strong>Figura 2.6.</strong> Inserción de inscripciones de muestra.</figcaption></figure>
+<p>La Figura 2.6 evidencia el registro de las inscripciones que relacionan alumnos con materias.</p>
+<h4>Paso 4. Consultas de verificación</h4>
+<p>Para comprobar los datos se ejecutaron tres consultas <code>SELECT *</code>, una por tabla. Con ellas se verificó que las tablas contenían la información recién insertada.</p>
+<figure id="fig2-7"><img alt="Figura 2.7. Resultado de SELECT * FROM alumnos (3 filas)." src="img/actividad2/fig2_07.png"/><figcaption><strong>Figura 2.7.</strong> Resultado de SELECT * FROM alumnos (3 filas).</figcaption></figure>
+<p>En la Figura 2.7 aparecen los tres alumnos con las columnas identificador, nombre, correo y edad.</p>
+<figure id="fig2-8"><img alt="Figura 2.8. Resultado de SELECT * FROM materias (3 filas)." src="img/actividad2/fig2_08.png"/><figcaption><strong>Figura 2.8.</strong> Resultado de SELECT * FROM materias (3 filas).</figcaption></figure>
+<p>La Figura 2.8 muestra las tres materias con sus créditos.</p>
+<figure id="fig2-9"><img alt="Figura 2.9. Resultado de SELECT * FROM inscripciones (4 filas)." src="img/actividad2/fig2_09.png"/><figcaption><strong>Figura 2.9.</strong> Resultado de SELECT * FROM inscripciones (4 filas).</figcaption></figure>
+<p>En la Figura 2.9 se listan las cuatro inscripciones con la fecha 11/09/2026 asignada.</p>
+<h4>Paso 5. Verificación de extensiones y creación de index.php</h4>
+<p>De vuelta en CMD se comprobó con <code>php -m | findstr /i zip</code> y <code>php -m | findstr /i pgsql</code> que PHP tenía cargadas la extensión <em>zip</em> y el controlador <em>pdo_pgsql</em>, necesario para hablar con PostgreSQL. Enseguida se ejecutó <code>notepad index.php</code>.</p>
+<figure id="fig2-10"><img alt="Figura 2.10. Verificación de extensiones zip y pdo_pgsql y apertura de index.php." src="img/actividad2/fig2_10.png"/><figcaption><strong>Figura 2.10.</strong> Verificación de extensiones zip y pdo_pgsql y apertura de index.php.</figcaption></figure>
+<p>La Figura 2.10 muestra las respuestas <em>zip</em> y <em>pdo_pgsql</em>, con lo que el entorno quedó listo para conectarse a PostgreSQL.</p>
+<h4>Paso 6. Código de la aplicación</h4>
+<p>En <code>index.php</code> se cargó el autoload de Composer, se importó la clase <code>Adapter</code> de Laminas DB y se definió un arreglo de configuración con el controlador <code>Pgsql</code>, el host de Neon, el usuario, el puerto 5432, la base <code>neondb</code> y las opciones SSL. Con el adaptador se ejecutó <code>SELECT * FROM alumnos</code> y se construyó una tabla HTML con los resultados.</p>
+<figure id="fig2-11"><img alt="Figura 2.11. Código de index.php con la configuración del adaptador Laminas DB y la consulta." src="img/actividad2/fig2_12.png"/><figcaption><strong>Figura 2.11.</strong> Código de index.php con la configuración del adaptador Laminas DB y la consulta.</figcaption></figure>
+<p>En la Figura 2.11 se observa el código completo de conexión y consulta tal como se escribió en el Bloc de notas.</p>
+<h4>Paso 7. Ejecución de la aplicación</h4>
+<p>La aplicación se ejecutó con el servidor integrado de PHP desde la carpeta del proyecto. La consola registra las peticiones <code>GET /</code> respondidas con código 200.</p>
+<pre><code>cd /d C:\optativa\7e\php\actividad2
+php -S localhost:8000</code></pre>
+<figure id="fig2-12"><img alt="Figura 2.12. Servidor de desarrollo de PHP iniciado en localhost:8000." src="img/actividad2/fig2_13.png"/><figcaption><strong>Figura 2.12.</strong> Servidor de desarrollo de PHP iniciado en localhost:8000.</figcaption></figure>
+<p>La Figura 2.12 muestra el servidor iniciado y las peticiones atendidas con código 200.</p>
+<figure id="fig2-13"><img alt="Figura 2.13. Tabla HTML generada por index.php con los alumnos de Neon." src="img/actividad2/fig2_14.png"/><figcaption><strong>Figura 2.13.</strong> Tabla HTML generada por index.php con los alumnos de Neon.</figcaption></figure>
+<p>La Figura 2.13 presenta el resultado final: los tres alumnos guardados en Neon se muestran en la página, lo que demuestra la conexión PHP → Laminas DB → Neon.</p>
+<h3>Resumen de comandos utilizados</h3>
+<div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>php -m | findstr /i zip</code></td><td>CMD / PHP</td><td>Comprueba que la extensión zip esté cargada.</td></tr><tr><td><code>php -m | findstr /i pgsql</code></td><td>CMD / PHP</td><td>Comprueba que el controlador pdo_pgsql esté disponible.</td></tr><tr><td><code>notepad index.php</code></td><td>CMD / Bloc de notas</td><td>Abre o crea el archivo index.php.</td></tr><tr><td><code>cd /d C:\optativa\7e\php\actividad2</code></td><td>CMD</td><td>Entra a la carpeta del proyecto.</td></tr><tr><td><code>php -S localhost:8000</code></td><td>PHP</td><td>Inicia el servidor de desarrollo integrado.</td></tr><tr><td><code>CREATE TABLE ...</code></td><td>SQL / Neon</td><td>Crea las tablas alumnos, materias e inscripciones.</td></tr><tr><td><code>INSERT INTO ... VALUES ...</code></td><td>SQL / Neon</td><td>Inserta los datos de muestra.</td></tr><tr><td><code>SELECT * FROM alumnos;</code></td><td>SQL</td><td>Consulta todos los registros de una tabla (también materias e inscripciones).</td></tr></tbody></table></div>
+<h3>Tabla de verificación</h3>
+<div class="table-responsive"><table><thead><tr><th>Elemento verificado</th><th>Resultado</th></tr></thead><tbody><tr><td>Tablas creadas en Neon</td><td>Verificadas en la sección Tablas (Figura 2.3)</td></tr><tr><td>Datos de muestra</td><td>Confirmados con SELECT (Figuras 2.7 a 2.9)</td></tr><tr><td>Extensión pdo_pgsql</td><td>Presente (Figura 2.10)</td></tr><tr><td>Página conectada a Neon</td><td>Confirmada por la tabla mostrada (Figura 2.11)</td></tr></tbody></table></div>
+<h3>Resultado</h3>
+<p>Como resultado final, la página PHP mostró en una tabla HTML los alumnos guardados en Neon. Con esto se comprobó que Laminas DB pudo conectarse a PostgreSQL, ejecutar la consulta y recuperar los datos correctamente.</p>
+<h3>Conclusión de la actividad 2</h3>
+<p>En esta actividad pude relacionar lo que hice en Neon con una aplicación real en PHP. Primero se crearon las tablas y los datos, y después se consultaron desde Laminas DB para mostrarlos en una página. También aprendí que la conexión depende de tener correctamente el host, usuario, base de datos y SSL, además de contar con la extensión pdo_pgsql habilitada.</p><p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="act pg" id="act3">
+<h2>5. Actividad 3. Aplicación .NET conectada a Neon con salida JSON</h2>
+<h3>Objetivo</h3>
+<p>Crear una aplicación web con ASP.NET Core que se conecte a la base de datos PostgreSQL alojada en Neon y exponga la información de la tabla <code>alumnos</code> mediante un endpoint que devuelva los registros en formato JSON.</p>
+<h3>Herramientas utilizadas</h3>
+<div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody>
+<tr><td>.NET SDK 10</td><td>Creación, compilación y ejecución del proyecto web.</td></tr>
+<tr><td>ASP.NET Core</td><td>Servidor web y definición del endpoint.</td></tr>
+<tr><td>Npgsql</td><td>Proveedor de conexión entre .NET y PostgreSQL.</td></tr>
+<tr><td>Dapper</td><td>Ejecución sencilla de la consulta SQL y mapeo de resultados.</td></tr>
+<tr><td>Neon</td><td>Base de datos PostgreSQL en la nube.</td></tr>
+<tr><td>CMD, editor y navegador</td><td>Comandos, edición de configuración/código y comprobación del JSON.</td></tr>
+</tbody></table></div>
+<h3>Procedimiento</h3>
+<h4>Paso 1. Verificación e instalación del SDK de .NET</h4>
+<p>Primero se verificó la versión disponible con <code>dotnet --version</code>. Después se instaló/actualizó el SDK 10 mediante <code>winget</code> y se volvió a consultar la versión para confirmar que el entorno había quedado preparado.</p>
+<figure id="fig3-1"><img alt="Verificación inicial de la versión de .NET" src="img/actividad3/fig3_01.png"/><figcaption><strong>Figura 3.1.</strong> Verificación inicial de la versión de .NET.</figcaption></figure>
+<figure id="fig3-2"><img alt="Instalación del SDK de .NET y comprobación de la nueva versión" src="img/actividad3/fig3_02.png"/><figcaption><strong>Figura 3.2.</strong> Instalación del SDK de .NET y comprobación de la versión instalada.</figcaption></figure>
+<h4>Paso 2. Creación de la carpeta y del proyecto web</h4>
+<p>Se creó la ruta de trabajo <code>C:\optativa\7e\dotnet</code> y dentro de ella se generó el proyecto <code>webpneon</code> utilizando la plantilla vacía de ASP.NET Core.</p>
+<pre><code>mkdir C:\optativa\7e\dotnet
+cd /d C:\optativa\7e\dotnet
+dotnet new web -o webpneon</code></pre>
+<figure id="fig3-3"><img alt="Creación de la carpeta de trabajo para .NET" src="img/actividad3/fig3_03.png"/><figcaption><strong>Figura 3.3.</strong> Creación de la carpeta de trabajo para .NET.</figcaption></figure>
+<figure id="fig3-4"><img alt="Creación correcta del proyecto ASP.NET Core" src="img/actividad3/fig3_04.png"/><figcaption><strong>Figura 3.4.</strong> Creación correcta del proyecto <code>webpneon</code>.</figcaption></figure>
+<h4>Paso 3. Primera ejecución del proyecto</h4>
+<p>Con <code>dotnet run</code> se comprobó que la aplicación podía iniciar localmente. La consola indicó que el servidor quedó escuchando en <code>http://localhost:5175</code>.</p>
+<figure id="fig3-5"><img alt="Servidor ASP.NET Core ejecutándose en localhost 5175" src="img/actividad3/fig3_05.png"/><figcaption><strong>Figura 3.5.</strong> Servidor ASP.NET Core ejecutándose en <code>localhost:5175</code>.</figcaption></figure>
+<h4>Paso 4. Obtención de la cadena de conexión de Neon</h4>
+<p>Desde la opción <em>Connect</em> de Neon se obtuvo la cadena de conexión de la base <code>neondb</code>. Esta información se utilizó posteriormente en la configuración del proyecto para que la aplicación pudiera comunicarse con PostgreSQL.</p>
+<figure id="fig3-6"><img alt="Ventana Connect de Neon con la cadena de conexión" src="img/actividad3/fig3_06.png"/><figcaption><strong>Figura 3.6.</strong> Datos de conexión proporcionados por Neon.</figcaption></figure>
+<h4>Paso 5. Configuración de appsettings.json</h4>
+<p>La cadena de conexión se agregó en <code>appsettings.json</code> bajo el nombre <code>NeonDB</code>. De esta forma el código puede leer la configuración mediante <code>GetConnectionString("NeonDB")</code> sin escribir toda la cadena directamente en la lógica del endpoint.</p>
+<figure id="fig3-7"><img alt="Configuración de la cadena NeonDB en appsettings.json" src="img/actividad3/fig3_07.png"/><figcaption><strong>Figura 3.7.</strong> Configuración de <code>NeonDB</code> en <code>appsettings.json</code>.</figcaption></figure>
+<h4>Paso 6. Instalación de Npgsql y Dapper</h4>
+<p>Se agregaron los paquetes necesarios para trabajar con PostgreSQL y ejecutar consultas desde .NET. Npgsql proporciona la conexión y Dapper simplifica la lectura de los registros.</p>
+<pre><code>dotnet add package Npgsql
+dotnet add package Dapper</code></pre>
+<figure id="fig3-8"><img alt="Paquete Npgsql agregado al proyecto" src="img/actividad3/fig3_08.png"/><figcaption><strong>Figura 3.8.</strong> Instalación del paquete Npgsql.</figcaption></figure>
+<figure id="fig3-9"><img alt="Paquete Dapper agregado al proyecto" src="img/actividad3/fig3_09.png"/><figcaption><strong>Figura 3.9.</strong> Instalación del paquete Dapper.</figcaption></figure>
+<h4>Paso 7. Programación de la conexión y del endpoint</h4>
+<p>En <code>Program.cs</code> se importaron Dapper y Npgsql, se leyó la cadena <code>NeonDB</code>, se registró <code>NpgsqlConnection</code> y se preparó la aplicación para consultar los datos. El endpoint <code>/alumnos</code> recupera los registros y ASP.NET Core los serializa como JSON.</p>
+<figure id="fig3-10"><img alt="Código Program.cs con Dapper Npgsql y configuración de CORS" src="img/actividad3/fig3_10.png"/><figcaption><strong>Figura 3.10.</strong> Configuración principal de <code>Program.cs</code> con Dapper y Npgsql.</figcaption></figure>
+<h4>Paso 8. Compilación y ejecución final</h4>
+<p>Se ejecutaron <code>dotnet build</code> y <code>dotnet run</code>. La compilación terminó correctamente y el servidor volvió a quedar disponible en el puerto 5175.</p>
+<figure id="fig3-11"><img alt="Compilación y ejecución final del proyecto" src="img/actividad3/fig3_11.png"/><figcaption><strong>Figura 3.11.</strong> Compilación correcta y ejecución de la aplicación.</figcaption></figure>
+<h4>Paso 9. Resultado en formato JSON</h4>
+<p>Finalmente se abrió <code>http://localhost:5175/alumnos</code>. El navegador mostró un arreglo JSON con tres objetos, cada uno con los campos <code>id</code>, <code>nombre</code>, <code>correo</code> y <code>edad</code>.</p>
+<figure id="fig3-12"><img alt="Resultado JSON del endpoint alumnos" src="img/actividad3/fig3_12.png"/><figcaption><strong>Figura 3.12.</strong> Resultado final del endpoint <code>/alumnos</code> en formato JSON.</figcaption></figure>
+<h3>Resumen de comandos utilizados</h3>
+<div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody>
+<tr><td><code>dotnet --version</code></td><td>.NET</td><td>Comprueba la versión del SDK instalada.</td></tr>
+<tr><td><code>winget install Microsoft.DotNet.SDK.10</code></td><td>winget</td><td>Instala o actualiza el SDK de .NET 10.</td></tr>
+<tr><td><code>dotnet new web -o webpneon</code></td><td>.NET CLI</td><td>Crea un proyecto web ASP.NET Core.</td></tr>
+<tr><td><code>dotnet add package Npgsql</code></td><td>NuGet/.NET CLI</td><td>Agrega el proveedor para PostgreSQL.</td></tr>
+<tr><td><code>dotnet add package Dapper</code></td><td>NuGet/.NET CLI</td><td>Agrega Dapper para ejecutar y mapear consultas.</td></tr>
+<tr><td><code>dotnet build</code></td><td>.NET CLI</td><td>Compila y valida el proyecto.</td></tr>
+<tr><td><code>dotnet run</code></td><td>.NET CLI</td><td>Ejecuta el servidor web local.</td></tr>
+</tbody></table></div>
+<h3>Resultado</h3>
+<p>La aplicación quedó conectada a Neon y el endpoint <code>/alumnos</code> devolvió correctamente los tres registros en JSON. La Figura 3.12 es la evidencia principal del resultado solicitado.</p>
+<h3>Conclusión de la actividad 3</h3>
+<p>Con esta práctica comprobé otra forma de obtener los datos almacenados en Neon. En la actividad anterior los datos se mostraron directamente en una tabla HTML, mientras que aquí ASP.NET Core los devolvió en formato JSON. Esto me ayudó a entender mejor cómo una aplicación puede entregar información para que después sea consumida por otra aplicación o servicio.</p>
+<p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p>
+</section>
+<section class="act pg" id="act4"><h2>6. Actividad 4. PostgreSQL, conexión a Neon con psql y modelado de asistencias 7E</h2><h3>Objetivo</h3>
+<h4>Objetivo general</h4>
+<p>Instalar y configurar PostgreSQL 18, utilizar la herramienta psql desde la línea de comandos para conectarse a una base de datos PostgreSQL alojada en Neon y aplicar los conocimientos adquiridos mediante el diseño de tablas relacionadas para modelar las asistencias del grupo 7E.</p>
+<h4>Objetivos específicos</h4>
+<ul>
+<li>Reconocer la ubicación y función de psql dentro de PostgreSQL.</li>
+<li>Conectarse desde Windows a una base de datos Neon mediante una cadena de conexión.</li>
+<li>Crear y relacionar las tablas materia, profesor, grupo, alumnos y asistencia.</li>
+<li>Aplicar una llave primaria compuesta y cuatro llaves foráneas.</li>
+<li>Registrar y consultar los valores de asistencia del grupo 7E.</li>
+</ul>
+<h3>Herramientas utilizadas</h3>
+<div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso en la actividad</th></tr></thead><tbody><tr><td>PostgreSQL 18.6 / psql</td><td>Instalación local y terminal interactiva para ejecutar SQL y meta-comandos.</td></tr><tr><td>CMD de Windows</td><td>Ejecución de <code>psql --version</code> y de la conexión a Neon.</td></tr><tr><td>Neon</td><td>Base de datos <strong>neondb</strong> en la nube y su SQL Editor.</td></tr><tr><td>Archivo banca.sql</td><td>Ejemplo del profesor usado como referencia de llaves foráneas.</td></tr></tbody></table></div>
+<h3>Procedimiento</h3>
+<h4>Instalación de PostgreSQL 18</h4>
+<p>De acuerdo con las notas de la práctica, PostgreSQL 18 se instaló en Windows utilizando las opciones normales del asistente. Durante el proceso se configuró una contraseña para el usuario administrador, se conservó el puerto predeterminado <strong>5432</strong> y al finalizar se desactivó o no se utilizó Stack Builder porque no era necesario instalar componentes adicionales para este ejercicio.</p>
+
+<div class="note"><strong>Evidencia disponible:</strong> la carpeta proporcionada no contiene capturas del asistente de instalación; por ello esta parte se documenta a partir de las instrucciones escritas entregadas con la práctica, sin inventar imágenes.</div>
+<h4>Localización de PostgreSQL en Windows</h4>
+<p>Una vez instalado PostgreSQL, se localizó la carpeta donde se encuentra el ejecutable de psql. La ruta utilizada fue:</p>
+<pre><code>C:\Program Files\PostgreSQL\18\bin</code></pre>
+<p>La carpeta <strong>bin</strong> contiene los ejecutables principales. Desde CMD se puede entrar directamente a esa ubicación con:</p>
+<pre><code>cd /d "C:\Program Files\PostgreSQL\18\bin"</code></pre>
+<p><code class="inline">cd</code> cambia de directorio, mientras que <code class="inline">/d</code> permite cambiar también de unidad si fuera necesario. Las comillas evitan problemas con espacios en nombres como <em>Program Files</em>.</p>
+<h4>¿Qué es psql?</h4>
+<p><strong>psql</strong> es la terminal interactiva de PostgreSQL. Permite conectarse a un servidor, escribir y ejecutar instrucciones SQL, consultar resultados y utilizar comandos especiales de administración y revisión.</p>
+<p>Para verificar su instalación se utilizó:</p>
+<pre><code>psql --version</code></pre>
+<figure>
+<img alt="Versión de psql y conexión a Neon con credenciales ocultas" src="img/actividad4/evidencia_02.png"/>
+<figcaption><strong>Figura 4.1.</strong> Verificación de psql 18.6 y conexión a Neon mediante la cadena utilizada en la práctica.</figcaption>
+</figure>
+<p>En la evidencia se observa <strong>psql (PostgreSQL) 18.6</strong>, lo que confirma que el cliente de línea de comandos estaba disponible.</p>
+<h4>Plataforma Neon</h4>
+<p>Neon se utilizó como servicio de PostgreSQL en la nube. Desde el proyecto se seleccionó la base de datos, el rol y la opción de conexión por <strong>psql</strong>. La plataforma genera una cadena de conexión con host, base de datos, usuario y parámetros SSL.</p>
+<figure>
+<img alt="Pantalla Connect de Neon con cadena de conexión protegida" src="img/actividad4/evidencia_04.png"/>
+<figcaption><strong>Figura 4.2.</strong> Ventana Connect de Neon con la cadena de conexión utilizada para psql.</figcaption>
+</figure>
+
+
+<h4>Conexión de psql con Neon</h4>
+<p>La cadena de conexión copiada desde Neon se colocó temporalmente en un archivo de texto para revisarla. Cuando la cadena aparecía entre apóstrofes, en CMD se sustituyeron por comillas dobles y después se pegó el comando completo.</p>
+<p>Una conexión correcta muestra un prompt parecido a:</p>
+<pre><code>neondb=&gt;</code></pre>
+<p>Ese prompt indica que psql se encuentra conectado a la base de datos <strong>neondb</strong>. A partir de ahí es posible ejecutar SQL y meta-comandos de psql.</p>
+<figure>
+<img alt="psql conectado a Neon y comando \l" src="img/actividad4/evidencia_03.png"/>
+<figcaption><strong>Figura 4.3.</strong> Sesión activa en Neon y ejecución de <code>\l</code> para listar bases de datos.</figcaption>
+</figure>
+<h4>Archivo banca.sql</h4>
+<p>Antes de construir la práctica de asistencias se revisó el ejemplo <strong>banca.sql</strong>. En las evidencias aparecen las tablas <strong>cliente</strong>, <strong>banco</strong> y <strong>cuenta</strong>. La tabla cuenta fue importante como referencia porque relacionaba información mediante llaves foráneas.</p>
+<figure>
+<img alt="Contenido del archivo banca.sql" src="img/actividad4/evidencia_01.png"/>
+<figcaption><strong>Figura 4.4.</strong> Ejemplo banca.sql mostrado durante la explicación del profesor.</figcaption>
+</figure>
+<p>La idea de relacionar una tabla central con otras tablas se reutilizó posteriormente en <strong>asistencia</strong>, donde se enlazaron materia, grupo, profesor y alumno.</p>
+<h4>Planteamiento de la práctica</h4>
+<p>La actividad solicitó definir las tablas necesarias para modelar las asistencias del grupo 7E. Las tablas requeridas fueron <strong>materia</strong>, <strong>profesor</strong>, <strong>grupo</strong>, <strong>alumnos</strong> y <strong>asistencia</strong>.</p>
+<p>La tabla asistencia debía contener cuatro llaves foráneas: <code class="inline">idmateria</code>, <code class="inline">idgrupo</code>, <code class="inline">idprofesor</code> e <code class="inline">idalumno</code>, además del campo <code class="inline">fecha</code>. Para identificar un registro sin utilizar un número artificial, se definió una llave primaria compuesta con los cinco campos.</p>
+<figure>
+<img alt="SQL Editor de Neon ejecutando el script de la práctica" src="img/actividad4/evidencia_05.png"/>
+<figcaption><strong>Figura 4.5.</strong> Ejecución del script de la práctica desde el SQL Editor de Neon.</figcaption>
+</figure>
+<h4>Creación del esquema practica_7e</h4>
+<p>Para mantener la actividad separada de tablas anteriores se creó un esquema propio:</p>
+<pre><code>CREATE SCHEMA practica_7e;
+SET search_path TO practica_7e;</code></pre>
+<p>Un esquema funciona como un espacio de organización dentro de la misma base de datos. De esta forma se pudo trabajar con nombres como <em>alumnos</em> sin afectar tablas antiguas ubicadas en otro esquema.</p>
+<figure>
+<img alt="Listado de tablas del esquema practica_7e" src="img/actividad4/evidencia_06.png"/>
+<figcaption><strong>Figura 4.6.</strong> Tablas alumnos, asistencia, grupo, materia y profesor dentro del esquema practica_7e.</figcaption>
+</figure>
+<h4>Tabla materia</h4>
+<pre><code>CREATE TABLE materia(
+    idmateria INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);</code></pre>
+<p>Se registraron las materias del horario del grupo 7E. En la práctica, <strong>idmateria = 6</strong> corresponde a <strong>Optativa I - Base de Datos en la Nube</strong>.</p>
+<figure>
+<img alt="Listado de materias del grupo 7E" src="img/actividad4/evidencia_07.png"/>
+<figcaption><strong>Figura 4.7.</strong> Consulta de las materias registradas en la tabla materia.</figcaption>
+</figure>
+<h4>Tabla profesor</h4>
+<p>La tabla profesor utiliza un identificador y el nombre del docente:</p>
+<pre><code>CREATE TABLE profesor(
+    idprofesor INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);</code></pre>
+<p>Para Base de Datos en la Nube se confirmó que <strong>idprofesor = 6</strong> corresponde a <strong>JAVIER NOLASCO HERNANDEZ</strong>.</p>
+<figure>
+<img alt="Listado de profesores del grupo 7E" src="img/actividad4/evidencia_08.png"/>
+<figcaption><strong>Figura 4.8.</strong> Consulta de profesores; Javier Nolasco Hernández aparece con identificador 6.</figcaption>
+</figure>
+<h4>Tabla grupo</h4>
+<pre><code>CREATE TABLE grupo(
+    idgrupo INT PRIMARY KEY,
+    nombre VARCHAR(10) NOT NULL
+);
+
+INSERT INTO grupo(idgrupo, nombre)
+VALUES (1, '7E');</code></pre>
+<p>Para los registros de asistencia se utilizó de manera constante <strong>idgrupo = 1</strong>, que representa al grupo <strong>7E</strong>.</p>
+<h4>Tabla alumnos</h4>
+<pre><code>CREATE TABLE alumnos(
+    idalumno INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);</code></pre>
+<p>Los nombres se tomaron de la lista original de asistencia. Posteriormente se comprobó que la tabla contenía <strong>39 alumnos</strong> mediante:</p>
+<pre><code>SELECT COUNT(*) AS total_alumnos
+FROM alumnos;</code></pre>
+<details>
+<summary>Ver los 39 alumnos registrados</summary>
+<div class="student-grid">
+<div>1. AGUAYO SANCHEZ JUAN CARLOS</div><div>2. AGUILAR JIMENEZ UZZIEL JAFET</div><div>3. AGUILAR MADRIGAL ANDY GAEL</div><div>4. AGUILAR VAZQUEZ ANGEL YAHIR</div><div>5. AREVALO SANCHEZ CESAR HESSIEL</div><div>6. AYOTITLA LAZCANO JOSE ARMANDO</div><div>7. CAPILLA CUAUTLE DUILIO CESAR</div><div>8. CARCAMO HUERTA LUIS ANGEL</div><div>9. CARMONA GREGORIO KAREN LISSETH</div><div>10. CARRASCO GUEVARA ANGEL DAVID</div><div>11. CERVANTES BARRALES ALONDRA IVONNE</div><div>12. CRUZ LOPEZ CRISTHIAN ALBERTO</div><div>13. DE ITA OREA GABRIEL</div><div>14. FUENTES ROMERO MARCOS ARTURO</div><div>15. GAONA SERRANO AXEL RICARDO</div><div>16. GARCIA FERNANDEZ ERIK ETHAN</div><div>17. GONZALEZ COTZOMI DIEGO IGNACIO</div><div>18. GONZALEZ DE LA ROSA OSWALDO</div><div>19. GUTIERREZ VITAL ERICK</div><div>20. HERNANDEZ CUBAS YARET VANESSA</div><div>21. HERNANDEZ JUAREZ MARIA FERNANDA</div><div>22. HERNANDEZ MENDEZ PAOLA MICHELLE</div><div>23. LANDA TORRES MARIANA</div><div>24. LOMELI SANCHEZ JESUS</div><div>25. MONARCA LANCHO ANGEL URIEL</div><div>26. MORALES MARTINEZ JESUS RAUL</div><div>27. NAVA SILVA OMAR</div><div>28. NEOCELO SANABRIA ALEXIS IAN</div><div>29. PALMA MALDONADO ANGEL SANTIAGO</div><div>30. PEREZ GARCIA EDUARDO</div><div>31. PEREZ LOPEZ JESUS ALFREDO</div><div>32. RAMIREZ PEREZ CAMILO ALEXIS</div><div>33. RODRIGUEZ CAMACHO ENRIQUE</div><div>34. RUIZ ALVARADO ANGEL GAMALIEL</div><div>35. SALAZAR RAMOS JOHAN AXEL</div><div>36. SANCHEZ GONZALEZ ADRIAN</div><div>37. SOTO HERNANDEZ LEONARDO</div><div>38. TOXQUI FLORES VICTOR</div><div>39. VALERO HERNANDEZ MIGUEL ANGEL</div>
+</div>
+</details>
+<h4>Tabla asistencia</h4>
+<p>La tabla asistencia es el centro del modelo. Su estructura final quedó de la siguiente forma:</p>
+<pre><code>CREATE TABLE asistencia(
+    idmateria INT NOT NULL,
+    idgrupo INT NOT NULL,
+    idprofesor INT NOT NULL,
+    idalumno INT NOT NULL,
+    fecha DATE NOT NULL,
+    valor_asistencia VARCHAR(10) NOT NULL,
+
+    PRIMARY KEY (
+        idmateria,
+        idgrupo,
+        idprofesor,
+        idalumno,
+        fecha
+    ),
+
+    FOREIGN KEY (idmateria)
+        REFERENCES materia(idmateria),
+
+    FOREIGN KEY (idgrupo)
+        REFERENCES grupo(idgrupo),
+
+    FOREIGN KEY (idprofesor)
+        REFERENCES profesor(idprofesor),
+
+    FOREIGN KEY (idalumno)
+        REFERENCES alumnos(idalumno)
+);</code></pre>
+<p>La tabla contiene los datos que identifican a qué materia, grupo, profesor, alumno y fecha pertenece cada registro, además del valor de asistencia.</p>
+<h4>Llave primaria compuesta</h4>
+<p>No se utilizó un <code class="inline">idasistencia SERIAL</code> independiente. La identificación única se construyó con:</p>
+<pre><code>PRIMARY KEY (
+    idmateria,
+    idgrupo,
+    idprofesor,
+    idalumno,
+    fecha
+)</code></pre>
+<p>Por ejemplo, <code class="inline">6 | 1 | 6 | 30 | 2026-09-14</code> representa una asistencia concreta de una materia, grupo, profesor, alumno y fecha determinados. Esta combinación evita duplicar el mismo registro.</p>
+<h4>Cuatro llaves foráneas</h4>
+<div class="table-wrap">
+<div class="table-responsive"><table>
+<thead><tr><th>Campo</th><th>Referencia</th><th>Función</th></tr></thead>
+<tbody>
+<tr><td>idmateria</td><td>materia(idmateria)</td><td>Relaciona la asistencia con una materia existente.</td></tr>
+<tr><td>idgrupo</td><td>grupo(idgrupo)</td><td>Relaciona el registro con el grupo.</td></tr>
+<tr><td>idprofesor</td><td>profesor(idprofesor)</td><td>Relaciona la asistencia con el profesor.</td></tr>
+<tr><td>idalumno</td><td>alumnos(idalumno)</td><td>Relaciona el registro con un alumno válido.</td></tr>
+</tbody>
+</table></div>
+</div>
+<p>Estas restricciones mantienen la integridad referencial porque impiden utilizar identificadores que no existan en sus respectivas tablas.</p>
+<h4>Campo valor_asistencia</h4>
+<p>Se utilizó <code class="inline">VARCHAR(10)</code> porque la lista original contiene valores numéricos y también anotaciones de retardo como <strong>r15</strong> y <strong>r17</strong>.</p>
+<pre><code>valor_asistencia VARCHAR(10) NOT NULL</code></pre>
+<p>Los valores <strong>0, 1 y 2</strong> se conservaron exactamente como aparecen en las listas originales. No se asignó un significado adicional porque ese significado no fue especificado en las evidencias. Los valores <strong>r15</strong> y <strong>r17</strong> corresponden a retardos registrados.</p>
+<h4>Verificación con \d asistencia</h4>
+<p>Después de crear la tabla se ejecutó:</p>
+<pre><code>\d asistencia</code></pre>
+<p>La salida permite comprobar columnas, tipos de datos, la llave primaria compuesta y las cuatro llaves foráneas.</p>
+<figure>
+<img alt="Descripción de la tabla asistencia en psql" src="img/actividad4/evidencia_09.png"/>
+<figcaption><strong>Figura 4.9.</strong> Estructura final de asistencia con llave primaria compuesta y cuatro llaves foráneas.</figcaption>
+</figure>
+<h4>Inserción de registros de asistencia</h4>
+<p>Los datos se obtuvieron de las listas originales de Base de Datos en la Nube. Las fechas utilizadas fueron <strong>1, 2, 4, 7, 8, 9, 14 y 18 de septiembre de 2026</strong>. Para esos registros se mantuvieron constantes:</p>
+<div class="kv">
+<div>idmateria</div><div>6 — Optativa I - Base de Datos en la Nube</div>
+<div>idgrupo</div><div>1 — 7E</div>
+<div>idprofesor</div><div>6 — Javier Nolasco Hernández</div>
+</div>
+<p>Los campos que cambiaron fueron <code class="inline">idalumno</code>, <code class="inline">fecha</code> y <code class="inline">valor_asistencia</code>. Un ejemplo representativo es:</p>
+<pre><code>INSERT INTO asistencia
+(idmateria, idgrupo, idprofesor, idalumno, fecha, valor_asistencia)
+VALUES
+(6,1,6,30,'2026-09-14','r15');</code></pre>
+<p>Al finalizar se almacenaron <strong>299 registros</strong>. En el día 18 algunas celdas del documento original estaban vacías, por lo que no se inventaron registros para esas celdas.</p>
+<div class="figure-grid">
+<figure>
+<img alt="Primera parte de la lista original de asistencia" src="img/actividad4/evidencia_14.png"/>
+<figcaption><strong>Figura 4.10.</strong> Primera parte de la lista original usada como fuente.</figcaption>
+</figure>
+<figure>
+<img alt="Segunda parte de la lista original de asistencia" src="img/actividad4/evidencia_15.png"/>
+<figcaption><strong>Figura 4.11.</strong> Segunda parte de la lista original usada como fuente.</figcaption>
+</figure>
+</div>
+<figure>
+<img alt="Inserción de asistencias en psql" src="img/actividad4/evidencia_10.png"/>
+<figcaption><strong>Figura 4.12.</strong> Evidencia de inserciones realizadas en la tabla asistencia.</figcaption>
+</figure>
+<h4>Consulta solicitada: SELECT * FROM asistencia</h4>
+<pre><code>SELECT * FROM asistencia;</code></pre>
+<p><strong>SELECT</strong> solicita información, el símbolo <strong>*</strong> indica todas las columnas y <strong>FROM asistencia</strong> especifica la tabla. El resultado conserva el formato relacional original: una fila por alumno y fecha, con los identificadores de materia, grupo, profesor y alumno.</p>
+<p>Esta consulta cumple directamente con la parte de la práctica que pide mostrar todos los registros de asistencia.</p>
+<h4>Consulta INNER JOIN para mostrar información completa</h4>
+<pre><code>SELECT
+    al.nombre AS alumno,
+    a.fecha,
+    a.valor_asistencia AS asistencia,
+    m.nombre AS materia,
+    g.nombre AS grupo,
+    p.nombre AS profesor
+FROM asistencia a
+INNER JOIN alumnos al
+    ON a.idalumno = al.idalumno
+INNER JOIN materia m
+    ON a.idmateria = m.idmateria
+INNER JOIN grupo g
+    ON a.idgrupo = g.idgrupo
+INNER JOIN profesor p
+    ON a.idprofesor = p.idprofesor
+ORDER BY al.nombre, a.fecha;</code></pre>
+<p>Se utilizaron alias para hacer la consulta más corta: <strong>a</strong> para asistencia, <strong>al</strong> para alumnos, <strong>m</strong> para materia, <strong>g</strong> para grupo y <strong>p</strong> para profesor. Cada <em>INNER JOIN</em> reemplaza un identificador por la información legible de la tabla relacionada.</p>
+<p>De esta manera, un registro como <code class="inline">6 | 1 | 6 | 30 | 2026-09-14 | r15</code> puede interpretarse como <strong>PEREZ GARCIA EDUARDO — 2026-09-14 — r15 — Optativa I - Base de Datos en la Nube — 7E — Javier Nolasco Hernández</strong>.</p>
+<figure>
+<img alt="Consulta con JOIN mostrando nombres de alumnos" src="img/actividad4/evidencia_11.png"/>
+<figcaption><strong>Figura 4.13.</strong> Consulta relacionada para mostrar el nombre del alumno junto con fecha y valor de asistencia.</figcaption>
+</figure>
+<h4>Creación de la vista lista_asistencia_7e</h4>
+<p>Aunque <code class="inline">SELECT * FROM asistencia;</code> es correcto, su salida no se parece visualmente a la lista del profesor. Para presentar los datos con un alumno por fila y una columna por día se creó una vista:</p>
+<pre><code>CREATE OR REPLACE VIEW lista_asistencia_7e AS
+SELECT
+    al.idalumno,
+    al.nombre AS alumno,
+
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-01'
+        THEN a.valor_asistencia END), '') AS "1",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-02'
+        THEN a.valor_asistencia END), '') AS "2",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-04'
+        THEN a.valor_asistencia END), '') AS "4",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-07'
+        THEN a.valor_asistencia END), '') AS "7",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-08'
+        THEN a.valor_asistencia END), '') AS "8",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-09'
+        THEN a.valor_asistencia END), '') AS "9",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-14'
+        THEN a.valor_asistencia END), '') AS "14",
+    COALESCE(MAX(CASE WHEN a.fecha = '2026-09-18'
+        THEN a.valor_asistencia END), '') AS "18"
+
+FROM alumnos al
+LEFT JOIN asistencia a
+    ON al.idalumno = a.idalumno
+    AND a.idmateria = 6
+    AND a.idgrupo = 1
+    AND a.idprofesor = 6
+GROUP BY al.idalumno, al.nombre
+ORDER BY al.idalumno;</code></pre>
+<h4>Explicación detallada de la vista</h4>
+<div class="table-wrap">
+<div class="table-responsive"><table>
+<thead><tr><th>Elemento</th><th>Función en la vista</th></tr></thead>
+<tbody>
+<tr><td><code>FROM alumnos al</code></td><td>Usa alumnos como base para conservar a todos los estudiantes.</td></tr>
+<tr><td><code>LEFT JOIN asistencia a</code></td><td>Relaciona los alumnos con sus registros, incluso si alguna fecha no tiene registro.</td></tr>
+<tr><td><code>CASE WHEN</code></td><td>Selecciona el valor correspondiente a una fecha específica.</td></tr>
+<tr><td><code>MAX()</code></td><td>Permite obtener un solo valor por alumno y fecha después del agrupamiento; no se usa para decidir qué asistencia es “mayor”.</td></tr>
+<tr><td><code>COALESCE(...,'')</code></td><td>Muestra una celda vacía en lugar de NULL cuando no existe un registro.</td></tr>
+<tr><td><code>GROUP BY</code></td><td>Agrupa los registros para obtener una fila por alumno.</td></tr>
+<tr><td><code>ORDER BY</code></td><td>Ordena la lista por identificador de alumno.</td></tr>
+</tbody>
+</table></div>
+</div>
+<h4>Consulta final de la vista</h4>
+<pre><code>SELECT * FROM lista_asistencia_7e;</code></pre>
+<p>El resultado se presenta como <strong>idalumno | alumno | 1 | 2 | 4 | 7 | 8 | 9 | 14 | 18</strong>. Esta salida es mucho más parecida a la lista original, pero la vista no sustituye a la tabla asistencia: solamente cambia la forma de consultar y mostrar la información.</p>
+<div class="figure-grid">
+<figure>
+<img alt="Primera parte de la vista final de asistencia" src="img/actividad4/evidencia_12.png"/>
+<figcaption><strong>Figura 4.14.</strong> Primera parte de la vista lista_asistencia_7e.</figcaption>
+</figure>
+<figure>
+<img alt="Segunda parte de la vista final de asistencia" src="img/actividad4/evidencia_13.png"/>
+<figcaption><strong>Figura 4.15.</strong> Segunda parte de la vista con los 39 alumnos.</figcaption>
+</figure>
+</div>
+<h4>Diferencia entre las tres consultas</h4>
+<div class="table-wrap">
+<div class="table-responsive"><table>
+<thead><tr><th>Consulta</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><code>SELECT * FROM asistencia;</code></td><td>Mostrar los registros originales de la tabla, una fila por alumno y fecha.</td></tr>
+<tr><td>Consulta con <code>INNER JOIN</code></td><td>Mostrar nombres de alumno, materia, grupo y profesor en lugar de solo identificadores.</td></tr>
+<tr><td><code>SELECT * FROM lista_asistencia_7e;</code></td><td>Presentar la información en formato de lista de asistencia, con fechas como columnas.</td></tr>
+</tbody>
+</table></div>
+</div>
+<h3>Resumen de comandos utilizados</h3>
+<div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>cd /d "C:\Program Files\PostgreSQL\18\bin"</code></td><td>CMD</td><td>Entra a la carpeta donde está psql.</td></tr><tr><td><code>psql --version</code></td><td>psql</td><td>Muestra la versión instalada del cliente.</td></tr><tr><td><code>\l</code></td><td>psql</td><td>Lista las bases de datos disponibles.</td></tr><tr><td><code>\dt</code></td><td>psql</td><td>Muestra las tablas del esquema actual.</td></tr><tr><td><code>\d asistencia</code></td><td>psql</td><td>Describe columnas, llaves y restricciones de asistencia.</td></tr><tr><td><code>\dn</code></td><td>psql</td><td>Lista los esquemas existentes.</td></tr><tr><td><code>\q</code></td><td>psql</td><td>Sale de psql.</td></tr><tr><td><code>CREATE SCHEMA practica_7e;</code></td><td>SQL</td><td>Crea el esquema de la práctica.</td></tr><tr><td><code>CREATE TABLE ...</code></td><td>SQL</td><td>Crea las tablas materia, profesor, grupo, alumnos y asistencia.</td></tr><tr><td><code>INSERT INTO asistencia ... VALUES ...</code></td><td>SQL</td><td>Registra los valores de asistencia.</td></tr><tr><td><code>SELECT * FROM asistencia;</code></td><td>SQL</td><td>Consulta todos los registros de asistencia.</td></tr><tr><td><code>... INNER JOIN ...</code></td><td>SQL</td><td>Muestra nombres en lugar de identificadores.</td></tr><tr><td><code>CREATE OR REPLACE VIEW lista_asistencia_7e AS ...</code></td><td>SQL</td><td>Crea la vista con formato de lista de asistencia.</td></tr><tr><td><code>SELECT * FROM lista_asistencia_7e;</code></td><td>SQL</td><td>Consulta la vista final.</td></tr></tbody></table></div>
+<h3>Resultado</h3>
+<p>Al finalizar la práctica se consiguió utilizar PostgreSQL 18 desde CMD, conectarse a Neon mediante psql, crear el esquema <code class="inline">practica_7e</code>, construir las cinco tablas solicitadas y registrar a los 39 alumnos. La tabla asistencia quedó relacionada mediante cuatro llaves foráneas y una llave primaria compuesta.</p>
+<p>También se registraron 299 valores de asistencia provenientes de las listas proporcionadas, se realizaron consultas relacionales y se creó una vista para mostrar los datos con una forma similar al documento original.</p>
+<div class="result"><strong>Resultado principal:</strong> el modelo mantiene los datos normalizados en tablas relacionadas, pero permite generar una presentación de asistencia fácil de leer cuando se necesita.</div>
+<div class="table-wrap">
+<div class="table-responsive"><table>
+<thead><tr><th>Requisito</th><th>Evidencia</th><th>Estado</th></tr></thead>
+<tbody>
+<tr><td>Tabla materia con ID y nombre</td><td>Consulta de materias y script</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Tabla profesor con ID y nombre</td><td>Consulta de profesores</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Tabla grupo</td><td>Registro 1 = 7E</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Tabla alumnos</td><td>39 alumnos registrados</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Tabla asistencia</td><td>Estructura mostrada con \d asistencia</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>4 llaves foráneas</td><td>idmateria, idgrupo, idprofesor, idalumno</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Campo fecha</td><td>fecha DATE NOT NULL</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Llave primaria compuesta</td><td>5 campos en PRIMARY KEY</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Valores de asistencia</td><td>0, 1, 2, r15, r17 según evidencias</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>SELECT * FROM asistencia</td><td>Consulta solicitada por la práctica</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Relaciones con JOIN</td><td>Consulta relacionada</td><td><span class="badge">Cumplido</span></td></tr>
+<tr><td>Vista final</td><td>lista_asistencia_7e</td><td><span class="badge">Cumplido</span></td></tr>
+</tbody>
+</table></div>
+</div>
+<h3>Conclusión de la actividad 4</h3>
+<p>En esta práctica aprendí a trabajar con PostgreSQL desde psql y a conectarme con una base de datos de Neon. Desde CMD pude ejecutar los comandos, revisar las tablas y comprobar los resultados sin depender solamente de la interfaz web.</p>
+<p>La parte de asistencias me ayudó a entender mejor para qué sirven las llaves primarias compuestas y las llaves foráneas. Al relacionar materia, grupo, profesor, alumno y fecha se puede identificar cada asistencia sin repetir datos de manera innecesaria.</p>
+<p>Por último, con INNER JOIN fue posible mostrar nombres y datos más fáciles de leer en lugar de solamente identificadores. La vista lista_asistencia_7e permitió presentar la información en un formato parecido a una lista de asistencia, pero manteniendo la estructura correcta de la base de datos.</p>
+<p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="act pg" id="act5">
+<h2>7. Actividad 5. Usuarios, privilegios y aplicaciones de respaldo</h2>
+<h3>5.1 Creación de usuarios y asignación de privilegios</h3>
+<h3>Objetivo</h3>
+<p>Administrar usuarios y privilegios en una base de datos PostgreSQL alojada en Neon, creando los usuarios Pedro, Juan y Pablo y asignando permisos de acuerdo con las funciones indicadas: lectura de tablas para Pedro, escritura en alumnos para Juan y escritura en asistencia para Pablo. Además, comprobar mediante sesiones y operaciones reales que los privilegios otorgados funcionan de acuerdo con las restricciones establecidas.</p>
+<h3>Herramientas utilizadas</h3>
+<div class="table-responsive"><table>
+<tr><th>Herramienta</th><th>Uso durante la práctica</th></tr>
+<tr><td>PostgreSQL / psql</td><td>Conexión a la base de datos, creación de usuarios, asignación de privilegios y ejecución de consultas.</td></tr>
+<tr><td>Neon</td><td>Alojamiento en la nube de la base de datos PostgreSQL <strong>neondb</strong>.</td></tr>
+<tr><td>Windows Terminal / PowerShell</td><td>Entorno desde el cual se realizaron las conexiones y pruebas.</td></tr>
+<tr><td>Esquema practica_7e</td><td>Contiene alumnos, asistencia, grupo, materia, profesor y la vista lista_asistencia.</td></tr>
+</table></div>
+<h3>Procedimiento</h3><div class="note"><strong>Seguridad:</strong> las contraseñas no se escriben en el texto del reporte. Las capturas se conservaron como evidencia y se acomodaron siguiendo el orden de la práctica.</div>
+<h4>Paso 1. Conexión inicial y revisión de roles</h4>
+<p>Se accedió a la base de datos <strong>neondb</strong> alojada en Neon mediante <code>psql</code>. Después se utilizó <code>\du</code> para revisar los roles existentes antes de crear los usuarios de la práctica.</p>
+<h5>Comando utilizado</h5>
+<pre><code>\du</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La captura confirma el acceso al servidor PostgreSQL y muestra el listado inicial de roles.</p>
+<figure id="fig5u-1">
+<img alt="Figura 5U.1. Conexión inicial y revisión de roles." src="img/actividad5/usuarios/fig4_02.jpg"/>
+<figcaption><strong>Figura 5U.1.</strong> Conexión inicial y revisión de roles.</figcaption>
+</figure>
+<h4>Paso 2. Revisión de la base de datos</h4>
+<p>Se revisó la conexión y el entorno de trabajo antes de modificar privilegios. Esta comprobación permite verificar que se está trabajando sobre la base de datos correcta.</p>
+<h5>Comando utilizado</h5>
+<pre><code>\l</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>Se muestra la base de datos y la sesión activa en PostgreSQL.</p>
+<figure id="fig5u-2">
+<img alt="Figura 5U.2. Revisión de la base de datos." src="img/actividad5/usuarios/fig4_03.jpg"/>
+<figcaption><strong>Figura 5U.2.</strong> Revisión de la base de datos.</figcaption>
+</figure>
+<h4>Paso 3. Revisión del esquema practica_7e</h4>
+<p>Se estableció el esquema de trabajo y se listaron sus tablas. Esto permitió confirmar que las tablas necesarias para las pruebas ya existían.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SET search_path TO practica_7e;
+\dt</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>Se observan las tablas alumnos, asistencia, grupo, materia y profesor dentro del esquema practica_7e.</p>
+<figure id="fig5u-3">
+<img alt="Figura 5U.3. Revisión del esquema practica_7e." src="img/actividad5/usuarios/fig4_04.jpg"/>
+<figcaption><strong>Figura 5U.3.</strong> Revisión del esquema practica_7e.</figcaption>
+</figure>
+<h4>Paso 4. Creación de los usuarios</h4>
+<p>Con el usuario propietario se crearon los roles de inicio de sesión <strong>pedro</strong>, <strong>juan</strong> y <strong>pablo</strong>. En el reporte las contraseñas fueron ocultadas.</p>
+<h5>Comando utilizado</h5>
+<pre><code>CREATE USER pedro WITH PASSWORD '********';
+CREATE USER juan WITH PASSWORD '********';
+CREATE USER pablo WITH PASSWORD '********';
+\du</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>Los mensajes CREATE ROLE y el listado de roles confirman la creación de los tres usuarios.</p>
+<figure id="fig5u-4">
+<img alt="Figura 5U.4. Creación de los usuarios." src="img/actividad5/usuarios/fig4_05.jpg"/>
+<figcaption><strong>Figura 5U.4.</strong> Creación de los usuarios.</figcaption>
+</figure>
+<h4>Paso 5. Permiso de conexión y acceso al esquema</h4>
+<p>Se otorgó a los tres usuarios permiso para conectarse a la base de datos y utilizar el esquema practica_7e.</p>
+<h5>Comando utilizado</h5>
+<pre><code>GRANT CONNECT ON DATABASE neondb TO pedro;
+GRANT CONNECT ON DATABASE neondb TO juan;
+GRANT CONNECT ON DATABASE neondb TO pablo;
+GRANT USAGE ON SCHEMA practica_7e TO pedro;
+GRANT USAGE ON SCHEMA practica_7e TO juan;
+GRANT USAGE ON SCHEMA practica_7e TO pablo;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>PostgreSQL respondió GRANT, indicando que los privilegios fueron asignados.</p>
+<figure id="fig5u-5">
+<img alt="Figura 5U.5. Permiso de conexión y acceso al esquema." src="img/actividad5/usuarios/fig4_06.jpg"/>
+<figcaption><strong>Figura 5U.5.</strong> Permiso de conexión y acceso al esquema.</figcaption>
+</figure>
+<h4>Paso 6. Asignación de privilegios específicos</h4>
+<p>A Pedro se le concedió lectura sobre todas las tablas; a Juan, lectura e inserción/actualización sobre alumnos; y a Pablo, lectura e inserción/actualización sobre asistencia.</p>
+<h5>Comando utilizado</h5>
+<pre><code>GRANT SELECT ON ALL TABLES IN SCHEMA practica_7e TO pedro;
+GRANT SELECT, INSERT, UPDATE ON TABLE practica_7e.alumnos TO juan;
+GRANT SELECT, INSERT, UPDATE ON TABLE practica_7e.asistencia TO pablo;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>Los comandos GRANT fueron aceptados por PostgreSQL.</p>
+<figure id="fig5u-6">
+<img alt="Figura 5U.6. Asignación de privilegios específicos." src="img/actividad5/usuarios/fig4_07.jpg"/>
+<figcaption><strong>Figura 5U.6.</strong> Asignación de privilegios específicos.</figcaption>
+</figure>
+<h4>Paso 7. Comprobación de privilegios</h4>
+<p>Se utilizó <code>\dp practica_7e.*</code> para revisar la lista de control de acceso. En la salida, Pedro aparece con <code>r</code> (SELECT); Juan con <code>arw</code> en alumnos; y Pablo con <code>arw</code> en asistencia.</p>
+<h5>Comando utilizado</h5>
+<pre><code>\dp practica_7e.*</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La salida confirma los privilegios asignados a cada usuario.</p>
+<figure id="fig5u-7">
+<img alt="Figura 5U.7. Comprobación de privilegios." src="img/actividad5/usuarios/fig4_08.jpg"/>
+<figcaption><strong>Figura 5U.7.</strong> Comprobación de privilegios.</figcaption>
+</figure>
+<h4>Paso 8. Inicio de sesión como Pedro</h4>
+<p>Se cerró la sesión del propietario y se realizó una nueva conexión utilizando el usuario Pedro. Las credenciales sensibles de conexión fueron ocultadas en la evidencia.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SELECT current_user;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La sesión se estableció correctamente con el usuario destinado a las pruebas de lectura.</p>
+<figure id="fig5u-8">
+<img alt="Figura 5U.8. Inicio de sesión como Pedro." src="img/actividad5/usuarios/fig4_09.jpg"/>
+<figcaption><strong>Figura 5U.8.</strong> Inicio de sesión como Pedro.</figcaption>
+</figure>
+<h4>Paso 9. Verificación de identidad de Pedro</h4>
+<p>Se ejecutó <code>SELECT current_user;</code> para comprobar que las consultas siguientes se realizarían realmente con Pedro y no con el propietario.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SELECT current_user;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>El resultado muestra el usuario Pedro como usuario actual.</p>
+<figure id="fig5u-9">
+<img alt="Figura 5U.9. Verificación de identidad de Pedro." src="img/actividad5/usuarios/fig4_10.jpg"/>
+<figcaption><strong>Figura 5U.9.</strong> Verificación de identidad de Pedro.</figcaption>
+</figure>
+<h4>Paso 10. Prueba de lectura de Pedro</h4>
+<p>Pedro ejecutó una consulta sobre la tabla asistencia. La operación fue permitida porque tiene el privilegio SELECT sobre las tablas del esquema.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SELECT * FROM practica_7e.asistencia;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La consulta devuelve registros de asistencia, comprobando el permiso de lectura.</p>
+<figure id="fig5u-10">
+<img alt="Figura 5U.10. Prueba de lectura de Pedro." src="img/actividad5/usuarios/fig4_11.jpg"/>
+<figcaption><strong>Figura 5U.10.</strong> Prueba de lectura de Pedro.</figcaption>
+</figure>
+<h4>Paso 11. Lectura de la vista lista_asistencia</h4>
+<p>Pedro consultó la vista <code>lista_asistencia</code>, donde los alumnos aparecen por filas y los días de clase por columnas. Esta prueba demuestra que también puede leer la vista del esquema.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SELECT * FROM practica_7e.lista_asistencia
+ORDER BY idalumno;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La consulta presenta la lista de asistencia con los valores registrados para cada alumno.</p>
+<figure id="fig5u-11">
+<img alt="Figura 5U.11. Lectura de la vista lista_asistencia." src="img/actividad5/usuarios/fig4_13.jpg"/>
+<figcaption><strong>Figura 5U.11.</strong> Lectura de la vista lista_asistencia.</figcaption>
+</figure>
+<h4>Paso 12. Inicio de sesión y escritura con Juan</h4>
+<p>Se inició sesión como Juan, se verificó el usuario actual y se realizó una inserción de prueba en <code>practica_7e.alumnos</code>. Después se consultó el registro insertado para comprobar que la escritura se realizó.</p>
+<h5>Comando utilizado</h5>
+<pre><code>SELECT current_user;
+INSERT INTO practica_7e.alumnos (idalumno, nombre)
+VALUES (40, 'ALUMNO PRUEBA JUAN');
+SELECT * FROM practica_7e.alumnos WHERE idalumno = 40;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>La evidencia muestra la sesión de Juan y la inserción/consulta del alumno de prueba.</p>
+<figure id="fig5u-12">
+<img alt="Figura 5U.12. Inicio de sesión y escritura con Juan." src="img/actividad5/usuarios/fig4_14.jpg"/>
+<figcaption><strong>Figura 5U.12.</strong> Inicio de sesión y escritura con Juan.</figcaption>
+</figure>
+<h4>Paso 13. Restricción de Juan sobre asistencia</h4>
+<p>Para comprobar que los privilegios están limitados a la tabla alumnos, Juan intentó ejecutar un UPDATE sobre asistencia. PostgreSQL rechazó la operación por falta de permisos.</p>
+<h5>Comando utilizado</h5>
+<pre><code>UPDATE practica_7e.asistencia
+SET estado = '1'
+WHERE idalumno = 9999;</code></pre>
+<h5>Resultado y comprobación</h5>
+<p>El mensaje «permission denied for table asistencia» demuestra que Juan no puede modificar esa tabla.</p>
+<figure id="fig5u-13">
+<img alt="Figura 5U.13. Restricción de Juan sobre asistencia." src="img/actividad5/usuarios/fig4_15.jpg"/>
+<figcaption><strong>Figura 5U.13.</strong> Restricción de Juan sobre asistencia.</figcaption>
+</figure>
+<h3>Resumen de comandos utilizados</h3>
+<div class="table-responsive"><table>
+<thead><tr><th>Comando</th><th>Usuario que lo ejecuta</th><th>Función</th><th>Resultado esperado</th></tr></thead>
+<tbody><tr><td><code>CREATE USER ... WITH PASSWORD '********';</code></td><td>neondb_owner</td><td>Crea un usuario/rol con capacidad de inicio de sesión y contraseña.</td><td>CREATE ROLE</td></tr><tr><td><code>GRANT CONNECT ON DATABASE neondb TO usuario;</code></td><td>neondb_owner</td><td>Permite que el usuario se conecte a la base de datos neondb.</td><td>GRANT</td></tr><tr><td><code>GRANT USAGE ON SCHEMA practica_7e TO usuario;</code></td><td>neondb_owner</td><td>Permite acceder a los objetos contenidos en el esquema.</td><td>GRANT</td></tr><tr><td><code>GRANT SELECT ON ALL TABLES IN SCHEMA practica_7e TO pedro;</code></td><td>neondb_owner</td><td>Concede a Pedro lectura sobre las tablas existentes del esquema.</td><td>GRANT</td></tr><tr><td><code>ALTER DEFAULT PRIVILEGES IN SCHEMA practica_7e GRANT SELECT ON TABLES TO pedro;</code></td><td>neondb_owner</td><td>Hace que Pedro reciba SELECT sobre nuevas tablas creadas por el propietario en ese esquema.</td><td>ALTER DEFAULT PRIVILEGES</td></tr><tr><td><code>GRANT SELECT, INSERT, UPDATE ON TABLE practica_7e.alumnos TO juan;</code></td><td>neondb_owner</td><td>Permite a Juan consultar, insertar y actualizar alumnos.</td><td>GRANT</td></tr><tr><td><code>GRANT SELECT, INSERT, UPDATE ON TABLE practica_7e.asistencia TO pablo;</code></td><td>neondb_owner</td><td>Permite a Pablo consultar, insertar y actualizar asistencias.</td><td>GRANT</td></tr><tr><td><code>\du</code></td><td>neondb_owner</td><td>Muestra los roles existentes y sus atributos.</td><td>Listado de roles</td></tr><tr><td><code>\dp practica_7e.*</code></td><td>neondb_owner</td><td>Muestra los privilegios de acceso de los objetos del esquema.</td><td>Tabla de privilegios</td></tr><tr><td><code>SELECT current_user;</code></td><td>Pedro / Juan</td><td>Comprueba qué usuario está ejecutando la sesión actual.</td><td>Nombre del usuario activo</td></tr><tr><td><code>SELECT * FROM practica_7e.asistencia;</code></td><td>Pedro</td><td>Comprueba el permiso de lectura de Pedro.</td><td>Registros de asistencia</td></tr><tr><td><code>SELECT * FROM practica_7e.lista_asistencia ORDER BY idalumno;</code></td><td>Pedro</td><td>Consulta la vista final de asistencia.</td><td>Lista de asistencia</td></tr><tr><td><code>INSERT INTO practica_7e.alumnos (...) VALUES (...);</code></td><td>Juan</td><td>Comprueba que Juan puede escribir en alumnos.</td><td>INSERT 0 1</td></tr><tr><td><code>UPDATE practica_7e.asistencia SET ... WHERE ...;</code></td><td>Juan</td><td>Prueba negativa: verifica que Juan no tiene escritura en asistencia.</td><td>ERROR: permission denied</td></tr></tbody>
+</table></div>
+<h3>Resultado</h3>
+<div class="table-responsive"><table>
+<tr><th>Usuario</th><th>Permiso asignado</th><th>Tabla / alcance</th><th>Comprobación disponible</th></tr>
+<tr><td>Pedro</td><td>SELECT</td><td>Tablas del esquema practica_7e</td><td>Las capturas muestran consultas de lectura exitosas sobre asistencia y lista_asistencia.</td></tr>
+<tr><td>Juan</td><td>SELECT, INSERT, UPDATE</td><td>practica_7e.alumnos</td><td>Se muestra una inserción de prueba y la consulta del registro; además, un UPDATE sobre asistencia es rechazado.</td></tr>
+<tr><td>Pablo</td><td>SELECT, INSERT, UPDATE</td><td>practica_7e.asistencia</td><td>La evidencia muestra la asignación del privilegio mediante GRANT y su aparición en la revisión de permisos con \dp.</td></tr>
+</table></div>
+<div class="ok"><strong>Resultado general:</strong> se comprobó la creación de Pedro, Juan y Pablo y la asignación de sus privilegios. En las evidencias también se observan pruebas directas de lectura con Pedro y de escritura/restricción con Juan, además de la revisión de los permisos asignados a Pablo sobre la tabla asistencia.</div>
+<h3>Conclusión de la parte 5.1</h3>
+<p>Esta parte de la práctica me ayudó a entender que no basta con crear usuarios, también es importante definir qué puede hacer cada uno. Con GRANT se asignaron permisos diferentes a Pedro, Juan y Pablo según la tabla que debían utilizar, y después se revisaron los privilegios para comprobar que quedaran configurados.</p>
+<p>Los comandos \du, \dp y SELECT current_user; fueron útiles para revisar los roles, los permisos y el usuario conectado. Con esto entendí mejor el principio de mínimo privilegio, ya que cada usuario debe tener solamente los permisos que necesita para realizar su trabajo.</p>
+<h3>5.2 Aplicaciones de respaldo en cinco lenguajes</h3>
+<h3>Objetivo</h3><p>Desarrollar cinco aplicaciones web, cada una en un lenguaje distinto (PHP, .NET, Go, Python y Rust), que generen y permitan descargar un respaldo de la base de datos PostgreSQL alojada en Neon usando <code>pg_dump</code>.</p>
+<h3>Herramientas utilizadas</h3><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>pg_dump 18.6</td><td>Respaldo lógico de la base de datos.</td></tr><tr><td>Neon (PostgreSQL)</td><td>Base de datos <strong>neondb</strong>, esquema <code>practica_7e</code>.</td></tr><tr><td>Visual Studio Code</td><td>Editor para el código.</td></tr><tr><td>CMD de Windows</td><td>Comandos, variables de entorno y ejecución.</td></tr><tr><td>Navegador web</td><td>Pruebas y descarga de los respaldos.</td></tr></tbody></table></div>
+<h3>5.2.0 Preparación común</h3>
+<p>Las cinco aplicaciones resuelven el mismo problema: generar un respaldo de la base de datos <strong>Asistencias 7E</strong> alojada en Neon (PostgreSQL) ejecutando <code>pg_dump</code> desde un programa y ofreciendo una página con el botón «Generar respaldo». Cada una usa un lenguaje distinto, pero todas leen la cadena de conexión de la variable de entorno <code>DATABASE_URL</code> y guardan el archivo <code>.sql</code> en una carpeta <code>backups</code>. Todo el trabajo se organizó dentro de <code>C:\optativa\7e\respaldos_neon</code>, con una subcarpeta por lenguaje.</p>
+<figure id="fig5a-1"><img alt="Figura 5A.1. Ventana Connect de Neon con la cadena de conexión (contraseña protegida por la interfaz)." src="img/actividad5/fig5_01.png"/><figcaption><strong>Figura 5A.1.</strong> Ventana Connect de Neon con la cadena de conexión utilizada en las aplicaciones.</figcaption></figure>
+<p>En la Figura 5A.1 se observa la opción <em>Connect</em> de la rama <em>production</em>, de donde se obtiene la cadena de conexión que después se asigna a <code>DATABASE_URL</code>. Esta misma captura sirvió de partida para las cinco aplicaciones.</p><section class="app" id="app-php"><h3>5.2.1 Aplicación 1: PHP</h3>
+<h4>Objetivo</h4><p>Generar respaldos de la base de datos de Neon desde una aplicación web en PHP.</p><h4>Descripción</h4><p>Aplicación con dos archivos: <code>index.php</code> muestra la página y <code>backup.php</code> ejecuta <code>pg_dump</code> mediante <code>proc_open</code>. Se probó primero un respaldo manual para validar la conexión.</p>
+<h4>Herramientas utilizadas</h4><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>PHP 8.2.12 y servidor integrado</td><td>Lógica del respaldo y servidor <code>php -S</code>.</td></tr><tr><td>pg_dump 18.6</td><td>Generación del archivo .sql.</td></tr><tr><td>Visual Studio Code</td><td>Edición del código.</td></tr><tr><td>CMD y navegador</td><td>Comandos, pruebas y descarga.</td></tr></tbody></table></div>
+<h4>Procedimiento</h4><p>Se comprobó primero que estuvieran disponibles <code>pg_dump</code> y PHP, ya que la aplicación invoca al primero desde el segundo.</p>
+<pre><code>pg_dump --version
+php -v</code></pre>
+<figure id="fig5a-2"><img alt="Figura 5A.2. Versiones de pg_dump (18.6) y PHP (8.2.12)." src="img/actividad5/fig5_02.png"/><figcaption><strong>Figura 5A.2.</strong> Versiones de pg_dump (18.6) y PHP (8.2.12).</figcaption></figure>
+<p>La Figura 5A.2 confirma que el cliente de respaldo de PostgreSQL 18.6 y PHP 8.2.12 responden desde CMD.</p>
+<pre><code>where pg_dump</code></pre>
+<figure id="fig5a-3"><img alt="Figura 5A.3. Ubicación del ejecutable pg_dump.exe." src="img/actividad5/fig5_03.png"/><figcaption><strong>Figura 5A.3.</strong> Ubicación del ejecutable pg_dump.exe.</figcaption></figure>
+<p>En la Figura 5A.3 <code>where pg_dump</code> devuelve la ruta <code>C:\Program Files\PostgreSQL\18\bin\pg_dump.exe</code>, lo que indica que está registrado en el PATH.</p>
+<h4>Paso 2. Carpeta del proyecto</h4><p>Se creó la carpeta del proyecto con su subcarpeta <code>backups</code> y se verificó con <code>dir</code>.</p>
+<pre><code>mkdir C:\optativa\7e\respaldos_neon\php\backups
+cd C:\optativa\7e\respaldos_neon\php
+dir</code></pre>
+<figure id="fig5a-4"><img alt="Figura 5A.4. Creación de la carpeta php con la subcarpeta backups." src="img/actividad5/fig5_04.png"/><figcaption><strong>Figura 5A.4.</strong> Creación de la carpeta php con la subcarpeta backups.</figcaption></figure>
+<p>La Figura 5A.4 muestra el directorio <code>php</code> ya con la carpeta <code>backups</code>.</p>
+<h4>Paso 3. Variable DATABASE_URL y respaldo manual</h4><p>Se definió la variable de entorno DATABASE_URL con la cadena de conexión de Neon y se verificó con set DATABASE_URL. Después se ejecutó un respaldo manual con pg_dump para validar la conexión antes de continuar con la aplicación.</p>
+<figure id="fig5a-5"><img alt="Figura 5A.5. Asignación correcta de DATABASE_URL y ejecución de pg_dump manual." src="img/actividad5/fig5_07.png"/><figcaption><strong>Figura 5A.5.</strong> Asignación correcta de DATABASE_URL y ejecución de pg_dump manual.</figcaption></figure>
+<p>En la Figura 5A.5 se asigna la variable con <code>set "DATABASE_URL=..."</code> y se lanza <code>pg_dump</code> hacia <code>backups\respaldo_asistencias_manual2.sql</code>.</p>
+<pre><code>findstr /i "alumnos asistencia grupo materia profesor" backups\respaldo_asistencias_manual2.sql</code></pre>
+<figure id="fig5a-6"><img alt="Figura 5A.6. Contenido del respaldo: llaves primarias y foráneas." src="img/actividad5/fig5_10.png"/><figcaption><strong>Figura 5A.6.</strong> Contenido del respaldo: llaves primarias y foráneas.</figcaption></figure>
+<p>La Figura 5A.6 muestra restricciones como <code>asistencia_idalumno_fkey</code>, es decir, el respaldo también incluye las relaciones entre tablas.</p>
+<h4>Paso 4. Desarrollo de la aplicación en Visual Studio Code</h4><p>Se abrió la carpeta del proyecto en Visual Studio Code y se crearon los archivos <code>index.php</code> (página con formulario) y <code>backup.php</code> (lógica del respaldo).</p>
+<figure id="fig5a-7"><img alt="Figura 5A.7. Código de index.php con formulario POST hacia backup.php." src="img/actividad5/fig5_13.png"/><figcaption><strong>Figura 5A.7.</strong> Código de index.php con formulario POST hacia backup.php.</figcaption></figure>
+<p>La Figura 5A.7 presenta el HTML de la página: datos de la base (Asistencias 7E, PostgreSQL, Neon.tech) y un formulario con el botón «GENERAR RESPALDO».</p>
+<figure id="fig5a-8"><img alt="Figura 5A.8. Código de backup.php: arreglo de comando y proc_open." src="img/actividad5/fig5_15.png"/><figcaption><strong>Figura 5A.8.</strong> Código de backup.php: arreglo de comando y proc_open.</figcaption></figure>
+<p>En la Figura 5A.8 se arma el nombre del archivo con la fecha, el arreglo con <code>pg_dump</code>, <code>-v</code>, <code>-d</code>, la URL y <code>-f</code>, y se ejecuta con <code>proc_open</code>.</p>
+<h4>Paso 5. Ejecución y pruebas</h4><pre><code>php -S localhost:8000</code></pre>
+<figure id="fig5a-9"><img alt="Figura 5A.9. Servidor de desarrollo de PHP iniciado." src="img/actividad5/fig5_16.png"/><figcaption><strong>Figura 5A.9.</strong> Servidor de desarrollo de PHP iniciado.</figcaption></figure>
+<p>La Figura 5A.9 confirma que el servidor quedó escuchando en <code>localhost:8000</code>.</p>
+<figure id="fig5a-10"><img alt="Figura 5A.10. Página inicial de la aplicación en el navegador." src="img/actividad5/fig5_17.png"/><figcaption><strong>Figura 5A.10.</strong> Página inicial de la aplicación en el navegador.</figcaption></figure>
+<p>En la Figura 5A.10 se ve la página «Respaldo de base de datos» con el botón «Generar respaldo».</p>
+<figure id="fig5a-11"><img alt="Figura 5A.11. Mensaje de respaldo generado correctamente." src="img/actividad5/fig5_18.png"/><figcaption><strong>Figura 5A.11.</strong> Mensaje de respaldo generado correctamente.</figcaption></figure>
+<p>La Figura 5A.11 muestra el aviso y el nombre del archivo creado, <code>respaldo_asistencias_2026-09-27_053433.sql</code>.</p>
+<figure id="fig5a-12"><img alt="Figura 5A.12. Verificación del respaldo generado por la aplicación." src="img/actividad5/fig5_21.png"/><figcaption><strong>Figura 5A.12.</strong> Verificación del respaldo generado por la aplicación.</figcaption></figure>
+<p>En la Figura 5A.12 <code>findstr</code> encuentra de nuevo las tablas del esquema <code>practica_7e</code> en el archivo generado por PHP.</p>
+<figure id="fig5a-13"><img alt="Figura 5A.13. Pantalla con el botón «Descargar respaldo»." src="img/actividad5/fig5_22.png"/><figcaption><strong>Figura 5A.13.</strong> Pantalla con el botón «Descargar respaldo».</figcaption></figure>
+<p>La Figura 5A.13 muestra la versión mejorada de la página, que ofrece descargar el archivo recién creado.</p>
+<h4>Resumen de comandos utilizados</h4><div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>pg_dump --version</code></td><td>CMD</td><td>Muestra la versión de pg_dump.</td></tr><tr><td><code>php -v</code></td><td>PHP</td><td>Muestra la versión de PHP.</td></tr><tr><td><code>where pg_dump</code></td><td>CMD</td><td>Localiza el ejecutable.</td></tr><tr><td><code>mkdir ...\php\backups</code></td><td>CMD</td><td>Crea la carpeta del proyecto y de respaldos.</td></tr><tr><td><code>set DATABASE_URL</code></td><td>CMD</td><td>Consulta la variable.</td></tr><tr><td><code>php -S localhost:8000</code></td><td>PHP</td><td>Inicia el servidor.</td></tr><tr><td><code>set "DATABASE_URL=postgresql://..."</code></td><td>CMD</td><td>Define la cadena de conexión que usa la aplicación.</td></tr><tr><td><code>pg_dump -v -d "&lt;url&gt;" -f &lt;archivo&gt;.sql</code></td><td>PostgreSQL / pg_dump</td><td>Genera el respaldo lógico de la base de datos.</td></tr><tr><td><code>dir backups</code></td><td>CMD</td><td>Comprueba el archivo creado.</td></tr><tr><td><code>findstr /i "alumnos asistencia grupo materia profesor" &lt;archivo&gt;.sql</code></td><td>CMD</td><td>Busca las tablas dentro del respaldo.</td></tr></tbody></table></div>
+<h4>Resultado obtenido</h4><p>Se obtuvo una aplicación PHP que genera respaldos <code>.sql</code> de la base <code>practica_7e</code> y permite descargarlos.</p><h4>Explicación del resultado</h4><p>Los archivos aparecen en <code>backups</code> con tamaños de 15,728 y 16,822 bytes, y contienen las tablas y la vista del esquema, por lo que el respaldo es utilizable.</p></section><section class="app" id="app-net"><h3>5.2.2 Aplicación 2: .NET (ASP.NET Core)</h3>
+<h4>Objetivo</h4><p>Implementar la misma función de respaldo con ASP.NET Core.</p><h4>Descripción</h4><p>Proyecto web mínimo creado con <code>dotnet new web</code>, con rutas <code>/backup</code> y <code>/download</code> escritas en <code>Program.cs</code>.</p>
+<h4>Herramientas utilizadas</h4><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>.NET SDK 10.0.401 / ASP.NET Core</td><td>Servidor web y lógica.</td></tr><tr><td>pg_dump</td><td>Respaldo.</td></tr><tr><td>Visual Studio Code</td><td>Edición.</td></tr><tr><td>CMD y navegador</td><td>Ejecución y pruebas.</td></tr></tbody></table></div>
+<h4>Procedimiento</h4><h4>Paso 1. Verificación de .NET y carpeta del proyecto</h4><pre><code>dotnet --version
+mkdir C:\optativa\7e\respaldos_neon\dotnet
+cd C:\optativa\7e\respaldos_neon\dotnet
+dir</code></pre>
+<figure id="fig5a-14"><img alt="Figura 5A.14. Versión de .NET (10.0.401) y carpeta dotnet vacía." src="img/actividad5/fig5_24.png"/><figcaption><strong>Figura 5A.14.</strong> Versión de .NET (10.0.401) y carpeta dotnet vacía.</figcaption></figure>
+<p>La Figura 5A.14 confirma que el SDK responde con la versión 10.0.401 y que la carpeta del proyecto se creó vacía.</p>
+<h4>Paso 2. Creación del proyecto web</h4><p>Con la plantilla <em>ASP.NET Core vacío</em> se generó el proyecto, y CMD indicó que la restauración de paquetes terminó correctamente.</p><pre><code>dotnet new web</code></pre>
+<figure id="fig5a-15"><img alt="Figura 5A.15. Creación del proyecto con dotnet new web." src="img/actividad5/fig5_25.png"/><figcaption><strong>Figura 5A.15.</strong> Creación del proyecto con dotnet new web.</figcaption></figure>
+<p>En la Figura 5A.15 se ve el mensaje de creación de la plantilla y los archivos generados (<code>Program.cs</code>, <code>appsettings.json</code>, <code>dotnet.csproj</code>).</p>
+<h4>Paso 3. Edición de Program.cs</h4><p>Se abrió el proyecto en Visual Studio Code y se editó <code>Program.cs</code> para devolver una página HTML con un formulario que envía una petición POST a la ruta <code>/backup</code>.</p>
+<figure id="fig5a-16"><img alt="Figura 5A.16. HTML de la página dentro de Program.cs." src="img/actividad5/fig5_27.png"/><figcaption><strong>Figura 5A.16.</strong> HTML de la página dentro de Program.cs.</figcaption></figure>
+<p>En la Figura 5A.16 aparece el formulario con el botón «GENERAR RESPALDO» y los datos de la base.</p>
+<figure id="fig5a-17"><img alt="Figura 5A.17. Argumentos de pg_dump agregados con ArgumentList." src="img/actividad5/fig5_28.png"/><figcaption><strong>Figura 5A.17.</strong> Argumentos de pg_dump agregados con ArgumentList.</figcaption></figure>
+<p>La Figura 5A.17 muestra el fragmento que agrega <code>-d</code>, la URL de la base, <code>-f</code> y la ruta del archivo al proceso.</p>
+<h4>Paso 4. Ejecución</h4><pre><code>set "DATABASE_URL=postgresql://..."
+dotnet run</code></pre>
+<figure id="fig5a-18"><img alt="Figura 5A.18. Asignación de DATABASE_URL y arranque con dotnet run." src="img/actividad5/fig5_29.png"/><figcaption><strong>Figura 5A.18.</strong> Asignación de DATABASE_URL y arranque con dotnet run.</figcaption></figure>
+<p>En la Figura 5A.18 la aplicación compila y queda escuchando en <code>http://localhost:5039</code>.</p>
+<figure id="fig5a-19"><img alt="Figura 5A.19. Página de la aplicación ASP.NET Core." src="img/actividad5/fig5_30.png"/><figcaption><strong>Figura 5A.19.</strong> Página de la aplicación ASP.NET Core.</figcaption></figure>
+<p>La Figura 5A.19 muestra la interfaz: base Asistencias 7E, motor PostgreSQL, servidor Neon.tech y tecnología .NET / ASP.NET Core.</p>
+<figure id="fig5a-20"><img alt="Figura 5A.20. Respaldo generado correctamente." src="img/actividad5/fig5_31.png"/><figcaption><strong>Figura 5A.20.</strong> Respaldo generado correctamente.</figcaption></figure>
+<p>En la Figura 5A.20 el sistema informa el archivo <code>respaldo_asistencias_2026-09-26_222640.sql</code>.</p>
+<h4>Paso 5. Comprobación del archivo</h4>
+<figure id="fig5a-21"><img alt="Figura 5A.21. Búsqueda de tablas en el respaldo con findstr." src="img/actividad5/fig5_33.png"/><figcaption><strong>Figura 5A.21.</strong> Búsqueda de tablas en el respaldo con findstr.</figcaption></figure>
+<p>En la Figura 5A.21 se localizan las definiciones de <code>alumnos</code>, <code>asistencia</code>, <code>grupo</code> y la vista <code>lista_asistencia_7e</code>.</p>
+<figure id="fig5a-22"><img alt="Figura 5A.22. Descarga del respaldo desde el navegador." src="img/actividad5/fig5_34.png"/><figcaption><strong>Figura 5A.22.</strong> Descarga del respaldo desde el navegador.</figcaption></figure>
+<p>La Figura 5A.22 muestra la ruta <code>/download/...</code> y el archivo descargado por el navegador.</p>
+<h4>Resumen de comandos utilizados</h4><div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>dotnet --version</code></td><td>.NET</td><td>Muestra la versión del SDK.</td></tr><tr><td><code>dotnet new web</code></td><td>.NET</td><td>Crea un proyecto ASP.NET Core vacío.</td></tr><tr><td><code>dotnet run</code></td><td>.NET</td><td>Compila y ejecuta la aplicación.</td></tr><tr><td><code>set "DATABASE_URL=postgresql://..."</code></td><td>CMD</td><td>Define la cadena de conexión que usa la aplicación.</td></tr><tr><td><code>pg_dump -v -d "&lt;url&gt;" -f &lt;archivo&gt;.sql</code></td><td>PostgreSQL / pg_dump</td><td>Genera el respaldo lógico de la base de datos.</td></tr><tr><td><code>dir backups</code></td><td>CMD</td><td>Comprueba el archivo creado.</td></tr><tr><td><code>findstr /i "alumnos asistencia grupo materia profesor" &lt;archivo&gt;.sql</code></td><td>CMD</td><td>Busca las tablas dentro del respaldo.</td></tr></tbody></table></div>
+<h4>Resultado obtenido</h4><p>La aplicación ASP.NET Core generó y permitió descargar el respaldo <code>respaldo_asistencias_2026-09-26_222640.sql</code>.</p><h4>Explicación del resultado</h4><p>La verificación con <code>dir</code> y <code>findstr</code> muestra el archivo de 15,728 bytes con las tablas de <code>practica_7e</code>.</p></section><section class="app" id="app-go"><h3>5.2.3 Aplicación 3: Go</h3>
+<h4>Objetivo</h4><p>Implementar el respaldo con Go, instalando previamente el lenguaje.</p><h4>Descripción</h4><p>Programa <code>main.go</code> con el paquete estándar <code>net/http</code> que ejecuta <code>pg_dump</code> con <code>exec.Command</code>.</p>
+<h4>Herramientas utilizadas</h4><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>Go 1.27.1</td><td>Lenguaje y servidor <code>net/http</code>.</td></tr><tr><td>pg_dump</td><td>Respaldo.</td></tr><tr><td>Visual Studio Code</td><td>Edición.</td></tr><tr><td>CMD y navegador</td><td>Ejecución y pruebas.</td></tr></tbody></table></div>
+<h4>Procedimiento</h4><h4>Paso 1. Descarga de Go</h4><p>Al ejecutar <code>go version</code> CMD indicó que el comando no se reconocía, por lo que Go aún no estaba instalado. Se descargó el instalador desde el sitio oficial.</p><pre><code>go version</code></pre>
+<figure id="fig5a-23"><img alt="Figura 5A.23. Página de descargas de Go." src="img/actividad5/fig5_36.png"/><figcaption><strong>Figura 5A.23.</strong> Página de descargas de Go.</figcaption></figure>
+<p>En la Figura 5A.23 se observa la descarga del instalador para Windows.</p>
+<h4>Paso 2. Instalación y verificación</h4>
+<figure id="fig5a-24"><img alt="Figura 5A.24. Asistente de instalación de Go 1.27.1." src="img/actividad5/fig5_37.png"/><figcaption><strong>Figura 5A.24.</strong> Asistente de instalación de Go 1.27.1.</figcaption></figure>
+<p>La Figura 5A.24 muestra la pantalla de bienvenida del instalador (amd64, go1.27.1).</p>
+<figure id="fig5a-25"><img alt="Figura 5A.25. Verificación de la instalación." src="img/actividad5/fig5_40.png"/><figcaption><strong>Figura 5A.25.</strong> Verificación de la instalación.</figcaption></figure>
+<p>En la Figura 5A.25 <code>go version</code> responde <code>go version go1.27.1 windows/amd64</code>.</p>
+<h4>Paso 3. Proyecto y módulo</h4><pre><code>mkdir C:\optativa\7e\respaldos_neon\go
+cd C:\optativa\7e\respaldos_neon\go
+go mod init respaldo-neon</code></pre>
+<figure id="fig5a-26"><img alt="Figura 5A.26. Módulo iniciado con go mod init." src="img/actividad5/fig5_42.png"/><figcaption><strong>Figura 5A.26.</strong> Módulo iniciado con go mod init.</figcaption></figure>
+<p>En la Figura 5A.26 Go crea el archivo <code>go.mod</code> para el módulo <code>respaldo-neon</code>.</p>
+<h4>Paso 4. Programa main.go</h4>
+<figure id="fig5a-27"><img alt="Figura 5A.27. Llamada a exec.Command con pg_dump." src="img/actividad5/fig5_44.png"/><figcaption><strong>Figura 5A.27.</strong> Llamada a exec.Command con pg_dump.</figcaption></figure>
+<p>En la Figura 5A.27 el programa ejecuta <code>pg_dump</code> con <code>-d</code>, la URL de la base, <code>-f</code> y la ruta del archivo.</p>
+<h4>Paso 5. Ejecución y pruebas</h4><pre><code>set "DATABASE_URL=postgresql://..."
+go run .</code></pre>
+<figure id="fig5a-28"><img alt="Figura 5A.28. Ejecución con go run." src="img/actividad5/fig5_45.png"/><figcaption><strong>Figura 5A.28.</strong> Ejecución con go run.</figcaption></figure>
+<p>La Figura 5A.28 muestra el mensaje «Servidor Go iniciado en http://localhost:8080».</p>
+<figure id="fig5a-29"><img alt="Figura 5A.29. Interfaz de la aplicación en Go." src="img/actividad5/fig5_46.png"/><figcaption><strong>Figura 5A.29.</strong> Interfaz de la aplicación en Go.</figcaption></figure>
+<p>En la Figura 5A.29 se ve la página con la tecnología Go / net/http y el botón para generar el respaldo.</p>
+<figure id="fig5a-30"><img alt="Figura 5A.30. Respaldo generado correctamente." src="img/actividad5/fig5_47.png"/><figcaption><strong>Figura 5A.30.</strong> Respaldo generado correctamente.</figcaption></figure>
+<p>La Figura 5A.30 informa el archivo <code>respaldo_asistencias_2026-09-26_230613.sql</code>.</p>
+<figure id="fig5a-31"><img alt="Figura 5A.31. Descarga del respaldo." src="img/actividad5/fig5_48.png"/><figcaption><strong>Figura 5A.31.</strong> Descarga del respaldo.</figcaption></figure>
+<p>En la Figura 5A.31 el navegador descarga el archivo desde <code>localhost:8080/backup</code>.</p>
+<h4>Resumen de comandos utilizados</h4><div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>go version</code></td><td>Go</td><td>Muestra la versión de Go.</td></tr><tr><td><code>go mod init respaldo-neon</code></td><td>Go</td><td>Crea el módulo del proyecto.</td></tr><tr><td><code>go run .</code></td><td>Go</td><td>Compila y ejecuta el programa.</td></tr><tr><td><code>set "DATABASE_URL=postgresql://..."</code></td><td>CMD</td><td>Define la cadena de conexión que usa la aplicación.</td></tr><tr><td><code>pg_dump -v -d "&lt;url&gt;" -f &lt;archivo&gt;.sql</code></td><td>PostgreSQL / pg_dump</td><td>Genera el respaldo lógico de la base de datos.</td></tr></tbody></table></div>
+<h4>Resultado obtenido</h4><p>La aplicación en Go quedó escuchando en el puerto 8080 y generó <code>respaldo_asistencias_2026-09-26_230613.sql</code>.</p><h4>Explicación del resultado</h4><p>El listado de descargas del navegador muestra el archivo generado, con lo que se confirma que el flujo completo funcionó.</p></section><section class="app" id="app-python"><h3>5.2.4 Aplicación 4: Python (Flask)</h3>
+<h4>Objetivo</h4><p>Implementar el respaldo con Python y Flask dentro de un entorno virtual.</p><h4>Descripción</h4><p>Archivo <code>app.py</code> con Flask; usa <code>subprocess.run</code> para llamar a <code>pg_dump</code> y muestra un error si falta <code>DATABASE_URL</code>.</p>
+<h4>Herramientas utilizadas</h4><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>Python 3.11.9 y pip 24.0</td><td>Lenguaje y gestor de paquetes.</td></tr><tr><td>Flask 3.1.3</td><td>Servidor web.</td></tr><tr><td>pg_dump</td><td>Respaldo.</td></tr><tr><td>Visual Studio Code, CMD y navegador</td><td>Edición y pruebas.</td></tr></tbody></table></div>
+<h4>Procedimiento</h4><h4>Paso 1. Verificación de Python y pip</h4><pre><code>python --version
+pip --version</code></pre>
+<figure id="fig5a-32"><img alt="Figura 5A.32. Versiones de Python (3.11.9) y pip (24.0)." src="img/actividad5/fig5_49.png"/><figcaption><strong>Figura 5A.32.</strong> Versiones de Python (3.11.9) y pip (24.0).</figcaption></figure>
+<p>La Figura 5A.32 confirma que Python 3.11.9 y pip 24.0 están disponibles.</p>
+<h4>Paso 2. Carpeta y entorno virtual</h4><pre><code>mkdir C:\optativa\7e\respaldos_neon\python
+cd C:\optativa\7e\respaldos_neon\python
+python -m venv venv
+venv\Scripts\activate</code></pre>
+<figure id="fig5a-33"><img alt="Figura 5A.33. Activación del entorno virtual." src="img/actividad5/fig5_52.png"/><figcaption><strong>Figura 5A.33.</strong> Activación del entorno virtual.</figcaption></figure>
+<p>La Figura 5A.33 muestra el prefijo <code>(venv)</code> en el prompt, señal de que el entorno está activo.</p>
+<h4>Paso 3. Instalación de Flask</h4><pre><code>pip install flask</code></pre>
+<figure id="fig5a-34"><img alt="Figura 5A.34. Instalación de Flask con pip." src="img/actividad5/fig5_53.png"/><figcaption><strong>Figura 5A.34.</strong> Instalación de Flask con pip.</figcaption></figure>
+<p>En la Figura 5A.34 pip descarga Flask 3.1.3 y sus dependencias (Blinker, Click, ItsDangerous, Jinja2, MarkupSafe y Werkzeug).</p>
+<h4>Paso 4. Programa app.py</h4>
+<figure id="fig5a-35"><img alt="Figura 5A.35. Validación de DATABASE_URL y armado del comando." src="img/actividad5/fig5_55.png"/><figcaption><strong>Figura 5A.35.</strong> Validación de DATABASE_URL y armado del comando.</figcaption></figure>
+<p>En la Figura 5A.35 el programa muestra un error si no encuentra la variable y crea la carpeta de respaldos y el nombre del archivo con la fecha.</p>
+<figure id="fig5a-36"><img alt="Figura 5A.36. Ejecución de pg_dump con subprocess.run." src="img/actividad5/fig5_56.png"/><figcaption><strong>Figura 5A.36.</strong> Ejecución de pg_dump con subprocess.run.</figcaption></figure>
+<p>La Figura 5A.36 muestra el uso de <code>subprocess.run</code> con captura de salida para ejecutar <code>pg_dump</code>.</p>
+<h4>Paso 5. Ejecución y pruebas</h4><pre><code>python app.py</code></pre>
+<figure id="fig5a-37"><img alt="Figura 5A.37. Servidor Flask en ejecución." src="img/actividad5/fig5_57.png"/><figcaption><strong>Figura 5A.37.</strong> Servidor Flask en ejecución.</figcaption></figure>
+<p>La Figura 5A.37 indica que Flask atiende en <code>http://127.0.0.1:5000</code> en modo de desarrollo.</p>
+<figure id="fig5a-38"><img alt="Figura 5A.38. Interfaz de la aplicación Python + Flask." src="img/actividad5/fig5_58.png"/><figcaption><strong>Figura 5A.38.</strong> Interfaz de la aplicación Python + Flask.</figcaption></figure>
+<p>En la Figura 5A.38 se ve la página con la tecnología Python / Flask y el botón «Generar respaldo».</p>
+<figure id="fig5a-39"><img alt="Figura 5A.39. Respaldo generado y descargado." src="img/actividad5/fig5_59.png"/><figcaption><strong>Figura 5A.39.</strong> Respaldo generado y descargado.</figcaption></figure>
+<p>La Figura 5A.39 muestra el archivo <code>respaldo_asistencias_2026-09-27_000812.sql</code> descargado desde <code>127.0.0.1:5000/backup</code>.</p>
+<h4>Resumen de comandos utilizados</h4><div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>python --version</code></td><td>Python</td><td>Muestra la versión de Python.</td></tr><tr><td><code>pip --version</code></td><td>pip</td><td>Muestra la versión de pip.</td></tr><tr><td><code>python -m venv venv</code></td><td>Python</td><td>Crea el entorno virtual.</td></tr><tr><td><code>venv\Scripts\activate</code></td><td>CMD</td><td>Activa el entorno virtual.</td></tr><tr><td><code>pip install flask</code></td><td>pip</td><td>Instala Flask.</td></tr><tr><td><code>python app.py</code></td><td>Python</td><td>Ejecuta la aplicación.</td></tr><tr><td><code>set "DATABASE_URL=postgresql://..."</code></td><td>CMD</td><td>Define la cadena de conexión que usa la aplicación.</td></tr><tr><td><code>pg_dump -v -d "&lt;url&gt;" -f &lt;archivo&gt;.sql</code></td><td>PostgreSQL / pg_dump</td><td>Genera el respaldo lógico de la base de datos.</td></tr></tbody></table></div>
+<h4>Resultado obtenido</h4><p>La aplicación Flask generó <code>respaldo_asistencias_2026-09-27_000812.sql</code> y lo descargó desde el navegador.</p><h4>Explicación del resultado</h4><p>El listado de descargas muestra el archivo nuevo junto con los respaldos anteriores de las otras aplicaciones.</p></section><section class="app" id="app-rust"><h3>5.2.5 Aplicación 5: Rust (Axum)</h3>
+<h4>Objetivo</h4><p>Implementar el respaldo con Rust, instalando antes el lenguaje y sus requisitos.</p><h4>Descripción</h4><p>Proyecto Cargo con <code>src/main.rs</code>, que usa Axum y <code>Command::new("pg_dump")</code>. Fue la más larga por la instalación de Rust y de las herramientas de C++.</p>
+<h4>Herramientas utilizadas</h4><div class="table-responsive"><table><thead><tr><th>Herramienta</th><th>Uso</th></tr></thead><tbody><tr><td>Rust 1.98.1 (rustc y cargo)</td><td>Lenguaje y compilación.</td></tr><tr><td>rustup</td><td>Instalador de Rust.</td></tr><tr><td>Visual Studio Build Tools 2026</td><td>Herramientas de C++ que exige rustup.</td></tr><tr><td>Axum, tokio y otras crates</td><td>Servidor web y dependencias.</td></tr><tr><td>pg_dump y navegador</td><td>Respaldo y pruebas.</td></tr></tbody></table></div>
+<h4>Procedimiento</h4><h4>Paso 1. Descarga de Rust</h4><pre><code>rustc --version
+cargo --version</code></pre>
+<figure id="fig5a-40"><img alt="Figura 5A.40. Descarga de rustup-init.exe." src="img/actividad5/fig5_61.png"/><figcaption><strong>Figura 5A.40.</strong> Descarga de rustup-init.exe.</figcaption></figure>
+<p>En la Figura 5A.40 se descarga el instalador <code>rustup-init.exe</code> desde el sitio oficial.</p>
+<h4>Paso 2. Requisito: herramientas de C++</h4>
+<figure id="fig5a-41"><img alt="Figura 5A.41. Aviso de prerrequisitos de Visual C++." src="img/actividad5/fig5_62.png"/><figcaption><strong>Figura 5A.41.</strong> Aviso de prerrequisitos de Visual C++.</figcaption></figure>
+<p>La Figura 5A.41 muestra que rustup solicita las herramientas de compilación de Microsoft C++ antes de continuar.</p>
+<figure id="fig5a-42"><img alt="Figura 5A.42. Selección de la carga de trabajo de C++." src="img/actividad5/fig5_65.png"/><figcaption><strong>Figura 5A.42.</strong> Selección de la carga de trabajo de C++.</figcaption></figure>
+<p>En la Figura 5A.42 se elige <em>Desarrollo para el escritorio con C++</em> en el instalador.</p>
+<h4>Paso 3. Instalación de Rust con rustup</h4>
+<figure id="fig5a-43"><img alt="Figura 5A.43. Opciones de instalación de rustup." src="img/actividad5/fig5_67.png"/><figcaption><strong>Figura 5A.43.</strong> Opciones de instalación de rustup.</figcaption></figure>
+<p>En la Figura 5A.43 se muestran las rutas de Cargo y las opciones; se eligió la instalación estándar (opción 1).</p>
+<figure id="fig5a-44"><img alt="Figura 5A.44. Verificación de rustc y cargo." src="img/actividad5/fig5_69.png"/><figcaption><strong>Figura 5A.44.</strong> Verificación de rustc y cargo.</figcaption></figure>
+<p>En la Figura 5A.44 se obtienen <code>rustc 1.98.1</code> y <code>cargo 1.98.1</code>.</p>
+<h4>Paso 4. Proyecto con Cargo</h4><pre><code>mkdir C:\optativa\7e\respaldos_neon\rust
+cd C:\optativa\7e\respaldos_neon\rust
+cargo init</code></pre>
+<figure id="fig5a-45"><img alt="Figura 5A.45. Creación del proyecto con cargo init." src="img/actividad5/fig5_70.png"/><figcaption><strong>Figura 5A.45.</strong> Creación del proyecto con cargo init.</figcaption></figure>
+<p>La Figura 5A.45 muestra la creación del paquete binario.</p>
+<figure id="fig5a-46"><img alt='Figura 5A.46. Uso de Command::new("pg_dump").' src="img/actividad5/fig5_72.png"/><figcaption><strong>Figura 5A.46.</strong> Uso de Command::new("pg_dump").</figcaption></figure>
+<p>La Figura 5A.46 muestra la llamada a <code>pg_dump</code> con <code>-d</code>, la URL y <code>-f</code>.</p>
+<h4>Paso 5. Compilación y ejecución</h4><pre><code>set "DATABASE_URL=postgresql://..."
+cargo run</code></pre>
+<figure id="fig5a-47"><img alt="Figura 5A.47. Compilación terminada y servidor iniciado." src="img/actividad5/fig5_76.png"/><figcaption><strong>Figura 5A.47.</strong> Compilación terminada y servidor iniciado.</figcaption></figure>
+<p>En la Figura 5A.47 la compilación finaliza en 2m 05s y aparece «Servidor Rust iniciado en http://localhost:3000».</p>
+<figure id="fig5a-48"><img alt="Figura 5A.48. Interfaz de la aplicación Rust / Axum." src="img/actividad5/fig5_77.png"/><figcaption><strong>Figura 5A.48.</strong> Interfaz de la aplicación Rust / Axum.</figcaption></figure>
+<p>La Figura 5A.48 muestra la página con la tecnología Rust / Axum.</p>
+<figure id="fig5a-49"><img alt="Figura 5A.49. Respaldo generado correctamente." src="img/actividad5/fig5_78.png"/><figcaption><strong>Figura 5A.49.</strong> Respaldo generado correctamente.</figcaption></figure>
+<p>En la Figura 5A.49 se informa el archivo <code>respaldo_asistencias_2026-09-26_235317.sql</code>.</p>
+<figure id="fig5a-50"><img alt="Figura 5A.50. Descarga del respaldo." src="img/actividad5/fig5_79.png"/><figcaption><strong>Figura 5A.50.</strong> Descarga del respaldo.</figcaption></figure>
+<p>La Figura 5A.50 muestra el archivo descargado (15,4 KB) desde <code>localhost:3000/backup</code>.</p>
+<h4>Resumen de comandos utilizados</h4><div class="table-responsive"><table><thead><tr><th>Comando</th><th>Herramienta</th><th>Función</th></tr></thead><tbody><tr><td><code>rustc --version</code></td><td>Rust</td><td>Muestra la versión del compilador.</td></tr><tr><td><code>cargo --version</code></td><td>Cargo</td><td>Muestra la versión de Cargo.</td></tr><tr><td><code>cargo init</code></td><td>Cargo</td><td>Crea el proyecto binario.</td></tr><tr><td><code>cargo run</code></td><td>Cargo</td><td>Descarga dependencias, compila y ejecuta.</td></tr><tr><td><code>set "DATABASE_URL=postgresql://..."</code></td><td>CMD</td><td>Define la cadena de conexión que usa la aplicación.</td></tr><tr><td><code>pg_dump -v -d "&lt;url&gt;" -f &lt;archivo&gt;.sql</code></td><td>PostgreSQL / pg_dump</td><td>Genera el respaldo lógico de la base de datos.</td></tr></tbody></table></div>
+<h4>Resultado obtenido</h4><p>La aplicación en Rust quedó escuchando en el puerto 3000 y generó <code>respaldo_asistencias_2026-09-26_235317.sql</code>.</p><h4>Explicación del resultado</h4><p>El navegador descargó el archivo de 15,4 KB, con lo que se confirma la generación del respaldo.</p></section>
+<h3>Tabla de verificación</h3><div class="table-responsive"><table><thead><tr><th>Aplicación</th><th>Puerto</th><th>Respaldo comprobado</th></tr></thead><tbody><tr><td>PHP</td><td>8000</td><td>Sí (Figuras 5A.11 a 5.22)</td></tr><tr><td>.NET</td><td>5039</td><td>Sí (Figuras 5A.20 a 5.34)</td></tr><tr><td>Go</td><td>8080</td><td>Sí (Figuras 5A.30 y 5.48)</td></tr><tr><td>Python / Flask</td><td>5000</td><td>Sí (Figura 5A.39)</td></tr><tr><td>Rust / Axum</td><td>3000</td><td>Sí (Figuras 5A.49 y 5.79)</td></tr></tbody></table></div>
+<h3>Conclusión de la parte 5.2</h3><p>Al realizar el mismo respaldo con cinco tecnologías pude comparar de manera práctica cómo cambia el proceso en cada una. En todas se utilizó DATABASE_URL y pg_dump, pero la instalación, la sintaxis y la forma de ejecutar el servidor fueron diferentes. También tuve que resolver requisitos adicionales, como las herramientas de C++ necesarias para Rust, y comprobar que los archivos de respaldo realmente se generaran.</p>
+<h3>5.3 Cuadro comparativo de facilidad y rendimiento de las aplicaciones</h3>
+<p>El siguiente cuadro resume lo que observé al trabajar con las cinco aplicaciones. Para la facilidad tomé en cuenta la instalación, las dependencias y la cantidad de pasos necesarios. El rendimiento se maneja de forma cualitativa, ya que durante la práctica no se hicieron mediciones exactas de tiempo, memoria o CPU.</p>
+<div class="table-responsive"><table><thead><tr><th>Aplicación</th><th>Facilidad observada</th><th>Rendimiento cualitativo</th><th>Justificación</th></tr></thead><tbody>
+<tr><td>PHP</td><td>Alta</td><td>Adecuado</td><td>El entorno PHP ya estaba preparado y la aplicación pudo ejecutar <code>pg_dump</code> desde una estructura pequeña de archivos.</td></tr>
+<tr><td>.NET</td><td>Media</td><td>Alto para la tarea</td><td>Requirió proyecto, configuración y dependencias, pero una vez compilado el servidor ejecutó correctamente el respaldo.</td></tr>
+<tr><td>Go</td><td>Media-alta</td><td>Alto para la tarea</td><td>La aplicación se compiló como programa nativo y utilizó una estructura compacta para invocar <code>pg_dump</code>.</td></tr>
+<tr><td>Python / Flask</td><td>Alta</td><td>Adecuado</td><td>La creación del entorno virtual y la instalación de Flask fueron directas; la lógica del respaldo se implementó con <code>subprocess</code>.</td></tr>
+<tr><td>Rust / Axum</td><td>Baja</td><td>Alto una vez compilado</td><td>Fue la implementación con más requisitos previos y tiempo de configuración, incluyendo Rust y herramientas de compilación, aunque el ejecutable final realizó correctamente el respaldo.</td></tr>
+</tbody></table></div>
+<p class="note">Nota: la comparación de rendimiento se basa únicamente en lo observado durante la práctica. Para hacer una comparación exacta sería necesario medir varias ejecuciones bajo las mismas condiciones.</p>
+<h3>Conclusión de la actividad 5</h3>
+<p>En esta actividad trabajé tanto la parte de seguridad como la de respaldo de la base de datos. Primero se configuraron los permisos de Pedro, Juan y Pablo y después se desarrollaron las aplicaciones para generar respaldos con diferentes tecnologías. El cuadro comparativo me permitió ver que cada opción tiene una forma distinta de instalación y ejecución, aunque todas buscan obtener el mismo resultado: generar correctamente el respaldo de PostgreSQL.</p>
+<p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p>
+</section>
+<section class="pg" id="conclusion"><h2>8. Conclusión general</h2><p>A lo largo de las cinco actividades fui trabajando diferentes partes de una base de datos en la nube, desde preparar el entorno de desarrollo hasta consultar, administrar y respaldar una base PostgreSQL en Neon. Cada actividad dejó un resultado visible, como la tabla HTML, la salida JSON, las consultas de asistencia, los permisos de usuarios y los archivos de respaldo.</p>
+<p>En la parte de programación pude ver que los mismos datos se pueden utilizar de distintas formas. Con PHP y Laminas DB los mostré directamente en una tabla, mientras que con ASP.NET Core se obtuvieron en JSON. Esto me ayudó a diferenciar una página pensada para mostrar información de un endpoint pensado para compartir datos.</p>
+<p>El ejercicio de asistencias reforzó el uso de relaciones y llaves entre tablas, y la parte de usuarios me permitió practicar el control de permisos. Al final, las cinco aplicaciones de respaldo mostraron diferentes maneras de ejecutar pg_dump y me permitieron comparar qué tan sencillo fue preparar cada entorno.</p>
+<p>En general, estas prácticas me ayudaron a mejorar el manejo de CMD, psql, SQL, Neon y herramientas de desarrollo web. También entendí que no solo importa que un comando funcione, sino comprobar el resultado y dejar evidencia clara de lo que se realizó.</p><p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section>
+<section class="pg" id="referencias"><h2>9. Referencias</h2><ul class="refs"><li>Composer. (2026). <em>Composer documentation</em>. <a href="https://getcomposer.org/doc/" rel="noopener noreferrer" target="_blank">https://getcomposer.org/doc/</a></li><li>Go Project. (2026). <em>Go documentation</em>. <a href="https://go.dev/doc/" rel="noopener noreferrer" target="_blank">https://go.dev/doc/</a></li><li>Laminas Project. (2026). <em>laminas-db documentation</em>. <a href="https://docs.laminas.dev/laminas-db/" rel="noopener noreferrer" target="_blank">https://docs.laminas.dev/laminas-db/</a></li><li>Microsoft. (2026). <em>.NET documentation</em>. <a href="https://learn.microsoft.com/dotnet/" rel="noopener noreferrer" target="_blank">https://learn.microsoft.com/dotnet/</a></li><li>Mozilla. (2026). <em>MDN Web Docs</em>. <a href="https://developer.mozilla.org/" rel="noopener noreferrer" target="_blank">https://developer.mozilla.org/</a></li><li>Neon. (2024, 12 de julio). <em>Postgres roles: What to know before you begin</em>. <a href="https://neon.com/blog/postgres-roles" rel="noopener noreferrer" target="_blank">https://neon.com/blog/postgres-roles</a></li><li>Neon. (2026). <em>Neon documentation</em>. <a href="https://neon.com/docs" rel="noopener noreferrer" target="_blank">https://neon.com/docs</a></li><li>Pallets. (2026). <em>Flask documentation</em>. <a href="https://flask.palletsprojects.com/" rel="noopener noreferrer" target="_blank">https://flask.palletsprojects.com/</a></li><li>PHP Group. (2026). <em>PHP manual</em>. <a href="https://www.php.net/manual/" rel="noopener noreferrer" target="_blank">https://www.php.net/manual/</a></li><li>PostgreSQL Global Development Group. (2026a). <em>Constraints: primary keys and foreign keys</em>. <a href="https://www.postgresql.org/docs/18/ddl-constraints.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/18/ddl-constraints.html</a></li><li>PostgreSQL Global Development Group. (2026b). <em>pg_dump</em>. <a href="https://www.postgresql.org/docs/18/app-pgdump.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/18/app-pgdump.html</a></li><li>PostgreSQL Global Development Group. (2026c). <em>PostgreSQL 16 documentation: 5.7. Privileges</em>. <a href="https://www.postgresql.org/docs/16/ddl-priv.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/16/ddl-priv.html</a></li><li>PostgreSQL Global Development Group. (2026d). <em>PostgreSQL 16 documentation: GRANT</em>. <a href="https://www.postgresql.org/docs/16/sql-grant.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/16/sql-grant.html</a></li><li>PostgreSQL Global Development Group. (2026e). <em>PostgreSQL 18.6 documentation</em>. <a href="https://www.postgresql.org/docs/18/" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/18/</a></li><li>PostgreSQL Global Development Group. (2026f). <em>psql — PostgreSQL interactive terminal</em>. <a href="https://www.postgresql.org/docs/18/app-psql.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/18/app-psql.html</a></li><li>Rust Project Developers. (2026). <em>The Rust programming language</em>. <a href="https://doc.rust-lang.org/book/" rel="noopener noreferrer" target="_blank">https://doc.rust-lang.org/book/</a></li><li>Tokio Project. (2026). <em>axum documentation</em>. <a href="https://docs.rs/axum/latest/axum/" rel="noopener noreferrer" target="_blank">https://docs.rs/axum/latest/axum/</a></li></ul><p class="volver no-print"><a class="btn" href="#indice">↑ Volver al índice</a></p></section></main><footer>Reporte académico – Base de Datos en la Nube – Grupo 7E – Universidad Tecnológica de Puebla – Septiembre de 2026<span class="print-note">Reporte de prácticas · Base de Datos en la Nube</span></footer></div><script src="js/script.js"></script></body></html>
